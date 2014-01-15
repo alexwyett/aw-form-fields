@@ -370,17 +370,16 @@ abstract class Element
      */
     public function getType()
     {
-        return strtolower(
-            str_replace(
-                'Field', 
-                '', 
-                str_replace(
-                    __NAMESPACE__ . '\\', 
-                    '', 
-                    get_called_class()
-                )
-            )
+        $type = strtolower(get_called_class());
+        $keywords = array(
+            __NAMESPACE__ . '\\',
+            'field',
+            'button'
         );
+        foreach ($keywords as $keyword) {
+            $type = str_replace($keyword, '', $type);
+        }
+        return $type;
     }
     
     
