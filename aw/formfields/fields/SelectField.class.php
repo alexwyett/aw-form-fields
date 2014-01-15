@@ -105,4 +105,22 @@ class SelectField extends \aw\formfields\fields\ParentElement
     {
         return '';
     }
+    
+    /**
+     * Accessory method for setting the selected element of the select field
+     * 
+     * @param string $value Value to be selected
+     * 
+     * @return \aw\formfields\fields\SelectField
+     */
+    public function setValue($value)
+    {
+        foreach ($this->getChildren() as $child) {
+            $child->setSelected(false);
+            if ($child->getValue() == $value) {
+                $child->setSelected(true);
+            }
+        }
+        return $this;
+    }
 }
