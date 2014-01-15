@@ -107,6 +107,7 @@ class Form extends \aw\formfields\fields\ParentElement
     public function setFormValues($formValues)
     {
         $this->formValues = $formValues;
+        return $this;
     }
     
     /**
@@ -117,6 +118,22 @@ class Form extends \aw\formfields\fields\ParentElement
     public function getFormValues()
     {
         return $this->formValues;
+    }
+    
+    /**
+     * Return a specific form value or false
+     * 
+     * @param string $key Array key
+     * 
+     * @return mixed
+     */
+    public function getFormValue($key)
+    {
+        $values = $this->getFormValues();
+        if (array_key_exists($key, $values)) {
+            return $values[$key];
+        }
+        return false;
     }
     
     // -------------------------- Helper Methods -------------------------- //
@@ -141,5 +158,35 @@ class Form extends \aw\formfields\fields\ParentElement
             return;
         }
     }
-
+    
+    /**
+     * Public mapping function. Returns the form object for chainability(?!)
+     * 
+     * @return \aw\formfields\forms\Form
+     */
+    public function mapValues()
+    {
+        $this->_mapValues();
+        return $this;
+    }
+    
+    /**
+     * Mapping function to set form elements to their form values
+     * 
+     * @return void
+     */
+    private function _mapValues()
+    {
+        return self::traverseChildren(
+            $this,
+            function ($ele) {
+                if ($ele->getName() 
+                    && array_key_exists($ele->getName(), $this->getFormValues())
+                ) {
+                    $ele->setValue($this->getFormValue($ele->getName()));
+                }
+                return;
+            }
+        );
+    }
 }
