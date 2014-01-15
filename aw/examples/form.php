@@ -30,3 +30,17 @@ $form->addChild($sf);
 
 // Output
 echo $form->validate();
+
+// Test a new form which store submitted values
+$form2 = new \aw\formfields\forms\Form(array(), $_GET);
+$form2->addChild($sf2);
+$form2->addChild(
+    new \aw\formfields\fields\SubmitButton(
+        array(
+            'value' => 'Submit Form'
+        )
+    )
+);
+
+// Output new form
+echo $form2->mapValues();
