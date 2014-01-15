@@ -48,7 +48,7 @@ class Legend extends \aw\formfields\fields\Element
     public function __construct($legend, $attributes = array())
     {
         parent::__construct($attributes);
-        $this->setLegend($label);
+        $this->setLegend($legend);
         
         // Set the template
         $this->setTemplate(
@@ -70,12 +70,12 @@ class Legend extends \aw\formfields\fields\Element
     }
     
     /**
-     * Return label text
+     * Return legend text
      * 
      * @return string
      */
-    public function getLabel()
+    public function getLegend()
     {
-        return $this->label;
+        return $this->legend;
     }
 }

@@ -43,8 +43,8 @@ class Fieldset extends \aw\formfields\fields\ParentElement
         $attributes = array(), 
         $children = array()
     ) {
-        $legend = new \aw\formfields\fields\legend($legend);
-        $children = array_unshift($legend, $children);
+        $legend = new \aw\formfields\fields\Legend($legend);
+        array_unshift($children, $legend);
         $fs = new \aw\formfields\fields\Fieldset(
             $attributes
         );

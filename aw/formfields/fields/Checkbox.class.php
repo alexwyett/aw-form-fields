@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Submit button class
+ * @inheritdoc
  *
  * PHP Version 5.3
  *
@@ -16,7 +16,7 @@
 namespace aw\formfields\fields;
 
 /**
- * Submit button object
+ * Checkbox object
  *
  * PHP Version 5.3
  * 
@@ -27,24 +27,7 @@ namespace aw\formfields\fields;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class Button extends \aw\formfields\fields\ValueElement
+class Checkbox extends \aw\formfields\fields\TextField
 {
-    /**
-     * Constructor
-     * 
-     * @param string $name       Field name
-     * @param array  $attributes Field attributes
-     * 
-     * @return aw\forms\fields\TextField
-     */
-    public function __construct($attributes = array())
-    {
-        // Add attributes
-        parent::__construct($attributes);
-        
-        // Set the template
-        $this->setTemplate(
-            '<input type="button" {implodeAttributes}>'
-        );
-    }
+    
 }
