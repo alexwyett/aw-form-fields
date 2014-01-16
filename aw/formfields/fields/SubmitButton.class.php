@@ -27,7 +27,7 @@ namespace aw\formfields\fields;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class Button extends \aw\formfields\fields\ValueElement
+class SubmitButton extends \aw\formfields\fields\ValueElement
 {
     /**
      * Constructor
@@ -44,7 +44,7 @@ class Button extends \aw\formfields\fields\ValueElement
         
         // Set the template
         $this->setTemplate(
-            '<input type="button" {implodeAttributes}>'
+            '<input type="{getType}"{implodeAttributes}>'
         );
     }
 }
