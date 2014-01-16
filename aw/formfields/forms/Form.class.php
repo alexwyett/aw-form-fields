@@ -144,18 +144,15 @@ class Form extends \aw\formfields\fields\ParentElement
      * @param object   $object   Object to traverse
      * @param function $callback Callback function to apply to child object
      * 
-     * @return mixed
+     * @return void
      */
     public static function traverseChildren($object, $callback)
     {
+        call_user_func($callback, $object);
         if (method_exists($object, 'hasChildren')) {
             foreach ($object->getChildren() as $child) {
-                call_user_func($callback, $object);
-                return self::traverseChildren($child, $callback);
+                self::traverseChildren($child, $callback);
             }
-        } else {
-            call_user_func($callback, $object);
-            return;
         }
     }
     
