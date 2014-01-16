@@ -16,7 +16,7 @@
 namespace aw;
 define('DS', DIRECTORY_SEPARATOR);
 spl_autoload_extensions(".class.php");
-$var = spl_autoload_register(
+spl_autoload_register(
     function ($className) {
         $file = str_replace('\\', DS, $className) . '.class.php';
         $file = dirname(__FILE__) . DS . '..' . DS . $file;
