@@ -64,34 +64,11 @@ class ContactForm extends \aw\formfields\forms\Form
         $fs->addChild($label);
         
         // Add initials
-        $label = new \aw\formfields\fields\Label(
-            'Initial', 
-            array('for' => 'initial')
-        );
-        $label->addChild(
-            new \aw\formfields\fields\TextField(
-                'initial', 
-                array(
-                    'id' => 'initial',
-                    'size' => 2
-                )
-            )
-        );
+        $label = self::_getNewLabelAndTextField('Initial');
         $fs->addChild($label);
         
         // Add surname
-        $label = new \aw\formfields\fields\Label(
-            'Surname', 
-            array('for' => 'surname')
-        );
-        $label->addChild(
-            new \aw\formfields\fields\TextField(
-                'surname', 
-                array(
-                    'id' => 'surname'
-                )
-            )
-        );
+        $label = self::_getNewLabelAndTextField('Surname');
         $fs->addChild($label);
         
         // Add fieldset to form
@@ -105,26 +82,23 @@ class ContactForm extends \aw\formfields\forms\Form
             )
         );
         
-        // Add email
-        $label = new \aw\formfields\fields\Label(
-            'Email', 
-            array('for' => 'email')
-        );
-        $label->addChild(
-            new \aw\formfields\fields\TextField(
-                'email', 
-                array(
-                    'id' => 'email'
-                )
-            )
-        );
+        // Add email TODO: Add validation rule in
+        $label = self::_getNewLabelAndTextField('Email');
         $fs->addChild($label);
-        
         
         // Add fieldset to form
         $form->addChild($fs);
         
-        return $form;
+        // Add submit button
+        $form->addChild(
+            new \aw\formfields\fields\SubmitButton(
+                array(
+                    'value' => 'Submit Form'
+                )
+            )
+        );
+        
+        return $form->mapValues();
     }
     
     /**
@@ -149,5 +123,30 @@ class ContactForm extends \aw\formfields\forms\Form
                 'id' => 'title'
             )
         );
+    }
+    
+    /**
+     * Create a new label and child texst field
+     * 
+     * @param \aw\formfields\fields\Label $label Label name
+     * 
+     * @return \aw\formfields\fields\Label
+     */
+    private static function _getNewLabelAndTextField($label)
+    {
+        $name = strtolower($label);
+        $label = new \aw\formfields\fields\Label(
+            $label, 
+            array('for' => $name)
+        );
+        $label->addChild(
+            new \aw\formfields\fields\TextField(
+                $name, 
+                array(
+                    'id' => $name
+                )
+            )
+        );
+        return $label;
     }
 }
