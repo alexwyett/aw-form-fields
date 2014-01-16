@@ -85,7 +85,7 @@ class Form extends \aw\formfields\fields\ParentElement
             $this,
             function ($ele) {
                 if ($ele->isRequired() 
-                    && !$ele->getRule()->validateLengthGreaterThan($ele->getValue())
+                    && !$ele->getRule()->validateString()
                 ) {
                     $ele->addClass('required')
                         ->setTemplate($ele->getTemplate() . '*required');
@@ -174,13 +174,14 @@ class Form extends \aw\formfields\fields\ParentElement
      */
     private function _mapValues()
     {
+        $form = $this;
         return self::traverseChildren(
             $this,
-            function ($ele) {
+            function ($ele) use ($form) {
                 if ($ele->getName() 
-                    && array_key_exists($ele->getName(), $this->getFormValues())
+                    && array_key_exists($ele->getName(), $form->getFormValues())
                 ) {
-                    $ele->setValue($this->getFormValue($ele->getName()));
+                    $ele->setValue($form->getFormValue($ele->getName()));
                 }
                 return;
             }

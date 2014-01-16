@@ -107,9 +107,9 @@ class Option extends \aw\formfields\fields\ValueElement
         $this->selected = $selected;
 
         if ($this->isSelected()) {
-            $this->setAttribute('selected', 'selected');
+            $this->attributes['selected'] = 'selected';
         } else {
-            $this->popAttribute('selected');
+            unset($this->attributes['selected']);
         }
 
         return $this;

@@ -35,24 +35,43 @@ class Valid
      * @var boolean
      */
     protected $required = false;
+
+    /**
+     * Value to test
+     * 
+     * @var mixed
+     */
+    protected $value;
     
     // ------------------------ Constructor --------------------------------- //
 
     /**
      * Factory method
      * 
+     * @param mixed   $value    Testing value
      * @param boolean $required Required bool
      * 
      * @return \aw\formfields\validation\Valid
      */
-    public static function factory($required = false)
+    public static function factory($value, $required = false)
     {
         $rule = new \aw\formfields\validation\Valid();
-        $rule->setRequired($required);
+        $rule->setValue($value)
+            ->setRequired($required);
         return $rule;
     }
     
     // ------------------------ Accessor functions -------------------------- //
+
+    /**
+     * Return the test value
+     * 
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Required boolean check
@@ -62,6 +81,19 @@ class Valid
     public function isRequired()
     {
         return $this->required;
+    }
+
+    /**
+     * Set the test value
+     * 
+     * @param mixed $value Value to test
+     * 
+     * @return \aw\formfields\validation\Valid
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
     }
 
     /**
@@ -81,27 +113,30 @@ class Valid
     /**
      * Validation function at the base level
      * 
-     * @param mixed $value Value to test
-     * 
      * @return boolean
      */
-    public function validate($value)
+    public function validateNull()
     {
-        return !is_null($value);
+        return !is_null($this->getValue());
     }
     
     /**
      * String min length check
      * 
-     * @param mixed   $value  Value to test
-     * @param integer $length Min Length to check
+     * @param integer $min Min Length to check
+     * @param integer $max Max Length to check
      * 
      * @return boolean
      */
-    public function validateLengthGreaterThan($value, $length = 0)
+    public function validateString($min = 1, $max = 0)
     {
-        if ($this->validate($value)) {
-            return strlen((string) $value) > $length;
+        if ($this->validateNull()) {
+            if ($min >= $max) {
+                return strlen((string) $this->getValue()) >= $min;
+            } else {
+                return strlen((string) $this->getValue()) >= $min
+                    && strlen((string) $this->getValue()) <= $max;
+            }
         }
         return false;
     }

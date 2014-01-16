@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @inheritdoc
+ * Contact form object
  *
  * PHP Version 5.3
  *
@@ -68,7 +68,7 @@ class ContactForm extends \aw\formfields\forms\Form
         $fs->addChild($label);
         
         // Add surname
-        $label = self::_getNewLabelAndTextField('Surname');
+        $label = self::_getNewLabelAndTextField('Surname', true);
         $fs->addChild($label);
         
         // Add fieldset to form
@@ -129,24 +129,33 @@ class ContactForm extends \aw\formfields\forms\Form
      * Create a new label and child texst field
      * 
      * @param \aw\formfields\fields\Label $label Label name
+     * @param boolean                     $rule  Set to true 
+     * if validation is required
      * 
      * @return \aw\formfields\fields\Label
      */
-    private static function _getNewLabelAndTextField($label)
+    private static function _getNewLabelAndTextField($label, $rule = false)
     {
         $name = strtolower($label);
         $label = new \aw\formfields\fields\Label(
             $label, 
             array('for' => $name)
         );
-        $label->addChild(
-            new \aw\formfields\fields\TextField(
-                $name, 
-                array(
-                    'id' => $name
-                )
+
+        $tf = new \aw\formfields\fields\TextField(
+            $name, 
+            array(
+                'id' => $name
             )
         );
-        return $label;
+
+        // Add validation rule if required
+        if ($rule) {
+            $tf->setRule('Valid')
+                ->getRule()
+                ->setRequired(true);
+        }
+
+        return $label->addChild($tf);
     }
 }

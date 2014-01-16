@@ -52,16 +52,12 @@ class Textarea extends \aw\formfields\fields\TextField
      * Overloaded attribute implode.  This will implode all attributes 
      * apart from the value attribute.
      * 
-     * @param array $ovAttrs Override object attributes so function can be used
-     * as a helper function.
-     * 
      * @return string
      */
-    public function implodeAttributes($ovAttrs = null)
+    public function implodeAttributes()
     {
         $attrs = '';
-        $attributes = (is_array($ovAttrs) ? $ovAttrs : $this->getAttributes());
-        foreach ($attributes as $key => $val) {
+        foreach ($this->getAttributes() as $key => $val) {
             if ($key != 'value') {
                 $attrs .= $this->_renderAttribute($key, $val);
             }

@@ -97,12 +97,7 @@ abstract class Element
      */
     public function addClass($class)
     {
-        $this->class = $this->getClass() . ' ' . $class;
-
-        // Set attribute value
-        $this->attributes['class'] = $this->getClass();
-
-        return $this;
+        return $this->setClass($this->getClass() . ' ' . $class);
     }
         
     /**
@@ -116,6 +111,11 @@ abstract class Element
     {
         if (isset($this->attributes[$key])) {
             unset($this->attributes[$key]);
+
+            // Remove property if that exists
+            if (property_exists($this, $key)) {
+                $this->$key = null;
+            }
         }
     }
     
@@ -135,26 +135,7 @@ abstract class Element
             $attrs .= $this->_renderAttribute($key, $val);
         }
         return $attrs;
-    }
-    
-    /**
-     * Render an attribute
-     * 
-     * @param string $key Attribute key
-     * 
-     * @return string 
-     */
-    public function renderProperty($key)
-    {
-        $func = 'get' . ucfirst($key);
-        if (method_exists($this, $func)) {
-            $val = $this->$func();
-            if ($val) {
-                return $this->_renderAttribute($key, $val);
-            }
-        }
-        return '';
-    }   
+    }  
    
     /**
      * Function used to overwrite a string with the output of any 
@@ -303,13 +284,14 @@ abstract class Element
     /**
      * Set validity status
      *
-     * @param object $rule Validity rule
+     * @param string $rule Name of validation rule to use
      * 
      * @return aw\forms\fields\Element
      */
-    public function setValidationRule($rule)
+    public function setRule($rule)
     {
-        $this->rule = $rule;
+        $rule = "\aw\\formfields\\validation\\{$rule}";
+        $this->rule = $rule::factory($this->getValue());
         return $this;
     }
     
@@ -354,6 +336,16 @@ abstract class Element
     }
     
     /**
+     * Get the validation rule
+     * 
+     * @return \aw\formfields\validation\Valid
+     */
+    public function getRule()
+    {
+        return $this->rule;
+    }
+    
+    /**
      * Return the element template
      * 
      * @return string
@@ -382,20 +374,8 @@ abstract class Element
         return $type;
     }
     
-    
     // ------------------------ Validation functions ------------------------ //
       
-    
-    /**
-     * Get the validation rule
-     * 
-     * @return \aw\formfields\validation\Valid
-     */
-    public function getRule()
-    {
-        return $this->rule;
-    }    
-
     /**
      * Return true if validation can applied to this element
      * 
@@ -418,87 +398,6 @@ abstract class Element
         } else {
             return false;
         }
-    }
-    
-    /**
-     * Basic Validation function
-     * 
-     * @return boolean
-     */
-    public function validate()
-    {
-        return (!is_null($this->getValue()));
-    }
-    
-    /**
-     * Numeric Validation check
-     * 
-     * @return boolean
-     */
-    public function validateNumber()
-    {
-        if ($this->validate()) {
-            return filter_var($this->getValue(), FILTER_VALIDATE_INT);
-        }
-        return false;
-    }
-    
-    /**
-     * String min length check
-     * 
-     * @param integer $length Min Length to check
-     * 
-     * @return boolean
-     */
-    public function validateLengthGreaterThan($length = 0)
-    {
-        if ($this->validate()) {
-            return strlen((string) $this->getValue()) > $length;
-        }
-        return false;
-    }
-    
-    /**
-     * String max length check
-     * 
-     * @param integer $length Max Length to check
-     * 
-     * @return boolean
-     */
-    public function validateLengthLessThan($length = 100)
-    {
-        if ($this->validateLengthGreaterThan()) {
-            return strlen((string) $this->getValue()) < $length;
-        }
-        return false;
-    }
-    
-    /**
-     * String max length check
-     * 
-     * @return boolean
-     */
-    public function validateEmail()
-    {
-        if ($this->validateLengthGreaterThan()) {
-            return filter_var($this->getValue(), FILTER_VALIDATE_EMAIL);
-        }
-        return false;
-    }
-    
-    /**
-     * Extendable validation function
-     * 
-     * @param function $func Call back function
-     * 
-     * @return boolean
-     */
-    public function validateFunc($func)
-    {
-        if (is_callable($func)) {
-            return $func($this);
-        }        
-        return false;
     }
     
     // -------------------------- Private Methods -------------------------- //

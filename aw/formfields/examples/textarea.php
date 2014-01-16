@@ -14,7 +14,7 @@
  */
 
 // Include autoloader
-require_once '../autoload.php';
+require_once '../../autoload.php';
 
 // Instantiate a new text area field
 $ta = new \aw\formfields\fields\Textarea('test');

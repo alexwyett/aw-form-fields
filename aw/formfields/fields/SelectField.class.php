@@ -103,7 +103,27 @@ class SelectField extends \aw\formfields\fields\ParentElement
      */
     public function getValue()
     {
-        return '';
+        $selected = $this->getSelected();
+        if ($selected) {
+            return $selected->getValue();
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Get the selected option
+     * 
+     * @return string
+     */
+    public function getSelected()
+    {
+        foreach ($this->getChildren() as $child) {
+            if ($child->isSelected()) {
+                return $child;
+            }
+        }
+        return;
     }
     
     /**
@@ -117,7 +137,7 @@ class SelectField extends \aw\formfields\fields\ParentElement
     {
         foreach ($this->getChildren() as $child) {
             $child->setSelected(false);
-            if ($child->getValue() == $value) {
+            if ($child->getValue() === $value) {
                 $child->setSelected(true);
             }
         }

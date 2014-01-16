@@ -14,6 +14,6 @@
  */
 
 // Include autoloader
-require_once '../autoload.php';
+require_once '../../autoload.php';
 
-echo \aw\formfields\forms\ContactForm::factory(array(), $_GET);
+echo \aw\formfields\forms\ContactForm::factory(array(), $_GET)->validate();
