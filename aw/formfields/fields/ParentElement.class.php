@@ -89,6 +89,18 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     {
         return $this->children;
     }
+    
+    /**
+     * Return a child object from the parent
+     * 
+     * @param integer $index Index of child
+     * 
+     * @return mixed
+     */
+    public function getChild($index)
+    {
+        return $this->children[$index];
+    }
 
     /**
      * Return true if element has children
