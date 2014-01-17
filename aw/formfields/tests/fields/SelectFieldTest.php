@@ -106,5 +106,8 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
             '<select name="selectfield2"><option value="">Select</option></select>', 
             $select->render()
         );
+        
+        $op2 = $select->getChild(0);
+        $this->assertEquals('Select', $op2->getDisplayValue());
     }
 }
