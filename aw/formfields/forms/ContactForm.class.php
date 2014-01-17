@@ -86,6 +86,16 @@ class ContactForm extends \aw\formfields\forms\Form
         $label = self::_getNewLabelAndTextField('Email');
         $fs->addChild($label);
         
+        // Email optin checkbox
+        $label = new \aw\formfields\fields\Label(
+            'Subscribe to email list?', 
+            array('for' => 'emailoptin')
+        );
+        $label->addChild(
+            new \aw\formfields\fields\Checkbox('emailoptin')
+        );
+        $fs->addChild($label);
+        
         // Add fieldset to form
         $form->addChild($fs);
         
