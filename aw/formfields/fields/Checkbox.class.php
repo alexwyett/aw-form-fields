@@ -29,5 +29,49 @@ namespace aw\formfields\fields;
  */
 class Checkbox extends \aw\formfields\fields\TextField
 {
+    /**
+     * Checked state
+     * 
+     * @var boolean
+     */
+    protected $checked = false;
     
+    /**
+     * Set the new checked state
+     * 
+     * @param type $checked Checked state
+     */
+    public function setChecked($checked)
+    {
+        if (is_bool($checked)) {
+            $this->checked = $checked;
+        }
+    }
+    
+    /**
+     * Return the checked state
+     * 
+     * @return boolean
+     */
+    public function isChecked()
+    {
+        return $this->checked;
+    }
+    
+    /**
+     * Return attributes string, overriden from textfield to include 
+     * the checked state. 
+     * 
+     * @return string
+     */
+    public function implodeAttributes()
+    {
+        $attrs = parent::implodeAttributes();
+        
+        if ($this->isChecked()) {
+            $attrs .= ' checked';
+        }
+        
+        return $attrs;
+    }
 }
