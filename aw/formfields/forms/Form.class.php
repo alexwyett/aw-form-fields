@@ -88,7 +88,7 @@ class Form extends \aw\formfields\fields\ParentElement
                     && !$ele->getRule()->validateString()
                 ) {
                     $ele->addClass('required')
-                        ->setTemplate($ele->getTemplate() . '*required');
+                        ->setTemplate($ele->getTemplate() . ' * required');
                 }
                 return;
             }
