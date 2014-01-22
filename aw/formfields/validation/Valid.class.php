@@ -111,6 +111,26 @@ class Valid
     // ------------------------ Validation functions ------------------------ //
 
     /**
+     * Validation method
+     * 
+     * @return boolean
+     */
+    public function validate()
+    {
+        foreach (get_class_methods($this) as $method) {
+            if (substr($method, 0, 8) ==  'validate'
+                && $method != 'validate'
+            ) {
+                if (!$this->$method()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
      * Validation function at the base level
      * 
      * @return boolean
@@ -121,23 +141,16 @@ class Valid
     }
     
     /**
-     * String min length check
-     * 
-     * @param integer $min Min Length to check
-     * @param integer $max Max Length to check
+     * String validation
      * 
      * @return boolean
      */
-    public function validateString($min = 1, $max = 0)
+    public function validateString()
     {
-        if ($this->validateNull()) {
-            if ($min >= $max) {
-                return strlen((string) $this->getValue()) >= $min;
-            } else {
-                return strlen((string) $this->getValue()) >= $min
-                    && strlen((string) $this->getValue()) <= $max;
-            }
+        if ($this->validateNull() && is_string($this->getValue())) {
+            return (strlen($this->getValue()) > 0);
         }
+        
         return false;
     }
 }

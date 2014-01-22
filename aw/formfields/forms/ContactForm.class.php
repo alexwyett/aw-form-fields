@@ -68,7 +68,7 @@ class ContactForm extends \aw\formfields\forms\Form
         $fs->addChild($label);
         
         // Add surname
-        $label = self::_getNewLabelAndTextField('Surname', true);
+        $label = self::_getNewLabelAndTextField('Surname', 'Valid', true);
         $fs->addChild($label);
         
         // Add fieldset to form
@@ -83,7 +83,7 @@ class ContactForm extends \aw\formfields\forms\Form
         );
         
         // Add email TODO: Add validation rule in
-        $label = self::_getNewLabelAndTextField('Email');
+        $label = self::_getNewLabelAndTextField('Email', 'ValidEmail');
         $fs->addChild($label);
         
         // Email optin checkbox
@@ -138,14 +138,19 @@ class ContactForm extends \aw\formfields\forms\Form
     /**
      * Create a new label and child texst field
      * 
-     * @param \aw\formfields\fields\Label $label Label name
-     * @param boolean                     $rule  Set to true 
-     * if validation is required
+     * @param \aw\formfields\fields\Label $label          Label name
+     * @param string                      $validationRule Name of the validation
+     * rule thats required to validate the field
+     * @param boolean                     $required       Set to true if the 
+     * rule is required or not
      * 
      * @return \aw\formfields\fields\Label
      */
-    private static function _getNewLabelAndTextField($label, $rule = false)
-    {
+    private static function _getNewLabelAndTextField(
+        $label,  
+        $validationRule = 'Valid',
+        $required = false
+    ) {
         $name = strtolower($label);
         $label = new \aw\formfields\fields\Label(
             $label, 
@@ -160,10 +165,10 @@ class ContactForm extends \aw\formfields\forms\Form
         );
 
         // Add validation rule if required
-        if ($rule) {
-            $tf->setRule('Valid')
+        if ($validationRule) {
+            $tf->setRule($validationRule)
                 ->getRule()
-                ->setRequired(true);
+                ->setRequired($required);
         }
 
         return $label->addChild($tf);
