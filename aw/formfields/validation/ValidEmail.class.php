@@ -56,6 +56,6 @@ class ValidEmail extends \aw\formfields\validation\Valid
      */
     public function validateEmail()
     {
-        return !filter_var($this->getValue(), FILTER_VALIDATE_EMAIL);
+        return filter_var($this->getValue(), FILTER_VALIDATE_EMAIL);
     }
 }
