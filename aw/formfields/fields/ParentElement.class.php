@@ -101,6 +101,28 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     {
         return $this->children[$index];
     }
+    
+    /**
+     * Return a child object from the parent
+     * 
+     * @param string $accessor Accessor method to call
+     * @param string $value    Comparison value
+     * 
+     * @return mixed
+     */
+    public function getElementBy($accessor, $value)
+    {
+        self::traverseChildren(
+            $this, 
+            function ($ele) use ($accessor, $value) {
+                if (method_exists($ele, $accessor)) {
+                    if ($value === $ele->$accessor()) {
+                        return $ele;
+                    }
+                }
+            }
+        );
+    }
 
     /**
      * Return true if element has children
@@ -110,6 +132,30 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     public function hasChildren()
     {
         return (count($this->getChildren()) > 0);
+    }
+    
+    // -------------------------- Helper Methods -------------------------- //
+
+    /**
+     * Child traversal function
+     * 
+     * @param object   $object   Object to traverse
+     * @param function $callback Callback function to apply to child object
+     * 
+     * @return void
+     */
+    public static function traverseChildren($object, $callback)
+    {
+        if ($ele = call_user_func($callback, $object)) {
+            var_dump($ele);
+            return $ele;
+        } else {
+            if (method_exists($object, 'hasChildren')) {
+                foreach ($object->getChildren() as $child) {
+                    self::traverseChildren($child, $callback);
+                }
+            }
+        }
     }
     
     // -------------------------- Private Methods -------------------------- //
