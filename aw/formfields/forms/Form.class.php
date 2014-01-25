@@ -31,18 +31,18 @@ namespace aw\formfields\forms;
 class Form extends \aw\formfields\fields\ParentElement
 {
     /**
-     * Boolean flag for a testable element
-     * 
-     * @var boolean
-     */
-    protected $testable = false;
-
-    /**
      * Key/value pair array of form values (for peristancy)
      * 
      * @var array
      */
     protected $formValues = array();
+    
+    /**
+     * Form validation errors.  This will be a collection of exception objects
+     * 
+     * @var array
+     */
+    protected $errors = array();
 
     /**
      * Constructor
@@ -84,11 +84,16 @@ class Form extends \aw\formfields\fields\ParentElement
         return self::traverseChildren(
             $this,
             function ($ele) {
-                if ($ele->isRequired() 
-                    && !$ele->getRule()->validateString()
-                ) {
-                    $ele->addClass('required')
-                        ->setTemplate($ele->getTemplate() . '*required');
+                if ($ele->getRule()) {
+                    try {
+                        $ele->getRule()->validate();
+                    } catch (\aw\formfields\validation\ValidationException $e) {
+                        $this->setError($ele->getName(), $e);
+                        $ele->addClass('required')
+                            ->setTemplate(
+                                $ele->getTemplate() . ' ' . $e->getMessage()
+                            );
+                    }
                 }
                 return;
             }
@@ -134,6 +139,20 @@ class Form extends \aw\formfields\fields\ParentElement
             return $values[$key];
         }
         return false;
+    }
+    
+    /**
+     * Set a validation error
+     * 
+     * @param string $element Element name
+     * @param string $error   Error string
+     * 
+     * @return \aw\formfields\forms\Form
+     */
+    public function setError($element, $error)
+    {
+        $this->errors[$element] = $error;
+        return $this;
     }
     
     // -------------------------- Helper Methods -------------------------- //

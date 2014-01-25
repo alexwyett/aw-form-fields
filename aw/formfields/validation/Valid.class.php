@@ -55,14 +55,26 @@ class Valid
      */
     public static function factory($value, $required = false)
     {
-        $rule = new \aw\formfields\validation\Valid();
+        $class = self::getType();
+        $rule = new $class();
         $rule->setValue($value)
             ->setRequired($required);
         return $rule;
     }
+
+    
+    /**
+     * Get the class name from the instantitated class
+     * 
+     * @return string
+     */
+    public static function getType()
+    {
+        return get_called_class();
+    }
     
     // ------------------------ Accessor functions -------------------------- //
-
+    
     /**
      * Return the test value
      * 
@@ -111,33 +123,58 @@ class Valid
     // ------------------------ Validation functions ------------------------ //
 
     /**
+     * Validation method
+     * 
+     * @return boolean
+     */
+    public function validate()
+    {
+        foreach (get_class_methods($this) as $method) {
+            if (substr($method, 0, 8) ==  'validate'
+                && $method != 'validate'
+            ) {
+                if (!$this->$method()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
      * Validation function at the base level
      * 
      * @return boolean
      */
     public function validateNull()
     {
-        return !is_null($this->getValue());
+        if (is_null($this->getValue())) {
+            throw new \aw\formfields\validation\ValidationException(
+                'Required', 
+                1000
+            );
+        }
+        
+        return true;
     }
     
     /**
-     * String min length check
-     * 
-     * @param integer $min Min Length to check
-     * @param integer $max Max Length to check
+     * String validation
      * 
      * @return boolean
      */
-    public function validateString($min = 1, $max = 0)
+    public function validateString()
     {
-        if ($this->validateNull()) {
-            if ($min >= $max) {
-                return strlen((string) $this->getValue()) >= $min;
-            } else {
-                return strlen((string) $this->getValue()) >= $min
-                    && strlen((string) $this->getValue()) <= $max;
+        if ($this->validateNull() && is_string($this->getValue())) {
+            if (strlen($this->getValue()) == 0) {
+                throw new \aw\formfields\validation\ValidationException(
+                    'Required',
+                    1000
+                );
             }
         }
-        return false;
+        
+        return true;
     }
 }
