@@ -29,5 +29,23 @@ require_once '../../autoload.php';
  */
 class FieldsetAndLegendTest extends PHPUnit_Framework_TestCase
 {
-    
+    /**
+     * Test factory method
+     * 
+     * @return void
+     */
+    public function testFieldsetCollection()
+    {
+        $textfield = new \aw\formfields\fields\TextField('mytextfield');
+        $fs = \aw\formfields\fields\Fieldset::factory('Test Fieldset', array(), array($textfield));
+        $this->assertEquals(
+            '<fieldset><legend>Test Fieldset</legend><input type="text" name="mytextfield"></fieldset>',
+            (string) $fs
+        );
+
+        // Get a child element by its accessor
+        $elements = $fs->getElementBy('getName', 'mytextfield');
+        $this->assertEquals(1, count($elements));
+        $this->assertEquals('mytextfield', $elements[0]->getName());
+    }
 }

@@ -81,14 +81,15 @@ class Form extends \aw\formfields\fields\ParentElement
      */
     public function validateForm()
     {
+        $form = $this;
         return self::traverseChildren(
             $this,
-            function ($ele) {
+            function ($ele) use (&$form) {
                 if ($ele->getRule()) {
                     try {
                         $ele->getRule()->validate();
                     } catch (\aw\formfields\validation\ValidationException $e) {
-                        $this->setError($ele->getName(), $e);
+                        $form->setError($ele->getName(), $e->getMessage());
                         $ele->addClass('required')
                             ->setTemplate(
                                 $ele->getTemplate() . ' ' . $e->getMessage()
@@ -156,24 +157,6 @@ class Form extends \aw\formfields\fields\ParentElement
     }
     
     // -------------------------- Helper Methods -------------------------- //
-
-    /**
-     * Child traversal function
-     * 
-     * @param object   $object   Object to traverse
-     * @param function $callback Callback function to apply to child object
-     * 
-     * @return void
-     */
-    public static function traverseChildren($object, $callback)
-    {
-        call_user_func($callback, $object);
-        if (method_exists($object, 'hasChildren')) {
-            foreach ($object->getChildren() as $child) {
-                self::traverseChildren($child, $callback);
-            }
-        }
-    }
     
     /**
      * Public mapping function. Returns the form object for chainability(?!)

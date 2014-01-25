@@ -148,23 +148,12 @@ abstract class Element
         foreach ($matches as $match) {
             if (isset($match[0])) {
                 $method = str_replace('}', '', str_replace('{', '', $match[0]));
-                preg_match('/([\w\W\_\d]+)\(([\w\W]*)\)/', $method, $matches);
-                if (isset($matches[1]) && isset($matches[2])) {
-                    if (method_exists($object, $matches[1])) {
-                        $template = str_replace(
-                            '{'.$matches[0].'}', 
-                            $object->$matches[1]($matches[2]),
-                            $template
-                        );
-                    }
-                } else {
-                    if (method_exists($object, $method)) {
-                        $template = str_replace(
-                            '{'.$method.'}', 
-                            $object->$method(),
-                            $template
-                        );
-                    }
+                if (method_exists($object, $method)) {
+                    $template = str_replace(
+                        '{'.$method.'}', 
+                        $object->$method(),
+                        $template
+                    );
                 }
             }
         }

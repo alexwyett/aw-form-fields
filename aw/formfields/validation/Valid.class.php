@@ -133,9 +133,8 @@ class Valid
             if (substr($method, 0, 8) ==  'validate'
                 && $method != 'validate'
             ) {
-                if (!$this->$method()) {
-                    return false;
-                }
+                // Method will throw an exception on failure
+                $this->$method();
             }
         }
         

@@ -53,7 +53,7 @@ abstract class ValueElement extends \aw\formfields\fields\Element
         $this->attributes['value'] = $this->getValue();
 
         // Set value to validation rule if present
-        if ($this->isTestable()) {
+        if ($this->getRule()) {
             $this->getRule()->setValue($this->getValue());
         }
 

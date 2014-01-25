@@ -56,6 +56,9 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
 
         // Add another class
         $this->textField->addClass('testing');
+
+        // Add simple validation
+        $this->textField->setRule('Valid');
     }
 
     /**
@@ -80,9 +83,17 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         // Test the output
         $this->assertEquals('<input type="text" id="newId" name="textfield" value="A Value">', (string) $this->textField);
 
+
+        $textField2 = new \aw\formfields\fields\TextField(
+            'textfield', 
+            array(
+                'id' => 'textfield',
+                'class' => 'textfield'
+            )
+        );
         // Test that the text field is not required to be tested at the
         // moment
-        $this->assertFalse($this->textField->isRequired());
+        $this->assertFalse($textField2->isRequired());
     }
 
     /**
@@ -92,7 +103,6 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
      */
     public function testTextFieldValidation()
     {
-        $this->textField->setRule('Valid');
         $this->assertFalse($this->textField->isRequired());
 
         $this->textField->getRule()->setRequired(true);
@@ -106,12 +116,60 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         // Test validation
         $this->assertTrue($this->textField->getRule()->validateNull());
         $this->assertTrue($this->textField->getRule()->validateString());
-        $this->assertTrue($this->textField->getRule()->validateString(5));
-        $this->assertFalse($this->textField->getRule()->validateString(50));
-        $this->assertFalse($this->textField->getRule()->validateString(5, 8));
+        $this->assertTrue($this->textField->getRule()->validate());
+    }
 
+    /**
+     * Test that an exception is thrown on validation failure
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testTextFieldValidationNullException()
+    {
         // Set value to be null
-        $this->textField->setValue(null);
-        $this->assertFalse($this->textField->getRule()->validateString());
+        $this->textField->setValue(null)->getRule()->validateNull();
+    }
+
+    /**
+     * Test that an exception is thrown on string validation failure
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testTextFieldValidationStringException()
+    {
+        // Set value to be empty string
+        $this->textField->setValue('')->getRule()->validateString();
+    }
+
+    /**
+     * Test that an exception is thrown on all validation
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testTextFieldValidationException()
+    {
+        // Set value to be empty string
+        $this->textField->setValue('')->getRule()->validate();
+    }
+
+    /**
+     * Test exception methods
+     * 
+     * @return void
+     */
+    public function testValidationMethods()
+    {
+        try {
+            $this->testTextFieldValidationException();
+        } catch(\aw\formfields\validation\ValidationException $e) {
+            // Test __toString()
+            $this->assertEquals('aw\formfields\validation\ValidationException: [1000]: Required', (string) $e);
+        }
     }
 }
