@@ -38,7 +38,7 @@ class Form extends \aw\formfields\fields\ParentElement
     protected $formValues = array();
     
     /**
-     * Form validation errors
+     * Form validation errors.  This will be a collection of exception objects
      * 
      * @var array
      */
@@ -84,9 +84,16 @@ class Form extends \aw\formfields\fields\ParentElement
         return self::traverseChildren(
             $this,
             function ($ele) {
-                if ($ele->getRule() && !$ele->getRule()->validate()) {
-                    $ele->addClass('required')
-                        ->setTemplate($ele->getTemplate() . ' * required');
+                if ($ele->getRule()) {
+                    try {
+                        $ele->getRule()->validate();
+                    } catch (\aw\formfields\validation\ValidationException $e) {
+                        $this->setError($ele->getName(), $e);
+                        $ele->addClass('required')
+                            ->setTemplate(
+                                $ele->getTemplate() . ' ' . $e->getMessage()
+                            );
+                    }
                 }
                 return;
             }
