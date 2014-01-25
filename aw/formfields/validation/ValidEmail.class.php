@@ -29,24 +29,6 @@ namespace aw\formfields\validation;
  */
 class ValidEmail extends \aw\formfields\validation\Valid
 {    
-    // ------------------------ Constructor --------------------------------- //
-
-    /**
-     * Factory method
-     * 
-     * @param mixed   $value    Testing value
-     * @param boolean $required Required bool
-     * 
-     * @return \aw\formfields\validation\Valid
-     */
-    public static function factory($value, $required = false)
-    {
-        $rule = new \aw\formfields\validation\ValidEmail();
-        $rule->setValue($value)
-            ->setRequired($required);
-        return $rule;
-    }
-    
     // ------------------------ Validation functions ------------------------ //
 
     /**
@@ -56,6 +38,11 @@ class ValidEmail extends \aw\formfields\validation\Valid
      */
     public function validateEmail()
     {
-        return filter_var($this->getValue(), FILTER_VALIDATE_EMAIL);
+        if (!filter_var($this->getValue(), FILTER_VALIDATE_EMAIL)) {
+            throw new \aw\formfields\validation\ValidationException(
+                'Invalid email address',
+                1000
+            );
+        }
     }
 }

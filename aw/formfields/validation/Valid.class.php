@@ -55,14 +55,26 @@ class Valid
      */
     public static function factory($value, $required = false)
     {
-        $rule = new \aw\formfields\validation\Valid();
+        $class = self::getType();
+        $rule = new $class();
         $rule->setValue($value)
             ->setRequired($required);
         return $rule;
     }
+
+    
+    /**
+     * Get the class name from the instantitated class
+     * 
+     * @return string
+     */
+    public static function getType()
+    {
+        return get_called_class();
+    }
     
     // ------------------------ Accessor functions -------------------------- //
-
+    
     /**
      * Return the test value
      * 
@@ -137,7 +149,14 @@ class Valid
      */
     public function validateNull()
     {
-        return !is_null($this->getValue());
+        if (is_null($this->getValue())) {
+            throw new \aw\formfields\validation\ValidationException(
+                'Required', 
+                1000
+            );
+        }
+        
+        return true;
     }
     
     /**
@@ -148,9 +167,14 @@ class Valid
     public function validateString()
     {
         if ($this->validateNull() && is_string($this->getValue())) {
-            return (strlen($this->getValue()) > 0);
+            if (strlen($this->getValue()) == 0) {
+                throw new \aw\formfields\validation\ValidationException(
+                    'Required',
+                    1000
+                );
+            }
         }
         
-        return false;
+        return true;
     }
 }
