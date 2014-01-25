@@ -118,6 +118,7 @@ class Valid
     public function setRequired($required)
     {
         $this->required = $required;
+        return $this;
     }
     
     // ------------------------ Validation functions ------------------------ //

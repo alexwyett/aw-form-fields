@@ -201,6 +201,7 @@ abstract class Element
 
         // Set attribute value
         $this->attributes[$key] = $value;
+        return $this;
     }
     
     /**
@@ -264,6 +265,7 @@ abstract class Element
     public function setTemplate($template)
     {
         $this->template = $template;
+        return $this;
     }
     
     /**

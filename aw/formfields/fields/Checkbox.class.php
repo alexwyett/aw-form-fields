@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @inheritdoc
+ * Checkbox object
  *
  * PHP Version 5.3
  *
@@ -40,12 +40,15 @@ class Checkbox extends \aw\formfields\fields\TextField
      * Set the new checked state
      * 
      * @param type $checked Checked state
+     * 
+     * @return void
      */
     public function setChecked($checked)
     {
         if (is_bool($checked)) {
             $this->checked = $checked;
         }
+        return $this;
     }
     
     /**
