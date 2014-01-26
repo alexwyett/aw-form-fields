@@ -158,23 +158,4 @@ class Valid
         
         return true;
     }
-    
-    /**
-     * String validation
-     * 
-     * @return boolean
-     */
-    public function validateString()
-    {
-        if ($this->validateNull() && is_string($this->getValue())) {
-            if (strlen($this->getValue()) == 0) {
-                throw new \aw\formfields\validation\ValidationException(
-                    'Required',
-                    1000
-                );
-            }
-        }
-        
-        return true;
-    }
 }
