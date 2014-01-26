@@ -58,7 +58,7 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         $this->textField->addClass('testing');
 
         // Add simple validation
-        $this->textField->setRule('Valid');
+        $this->textField->setRule('ValidString');
     }
 
     /**
@@ -169,7 +169,7 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
             $this->testTextFieldValidationException();
         } catch(\aw\formfields\validation\ValidationException $e) {
             // Test __toString()
-            $this->assertEquals('aw\formfields\validation\ValidationException: [1000]: Required', (string) $e);
+            $this->assertEquals('aw\formfields\validation\ValidationException: [1001]: Required', (string) $e);
         }
     }
 }
