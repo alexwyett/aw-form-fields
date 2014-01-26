@@ -27,7 +27,7 @@ namespace aw\formfields\validation;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class ValidEmail extends \aw\formfields\validation\Valid
+class ValidEmail extends \aw\formfields\validation\ValidString
 {    
     // ------------------------ Validation functions ------------------------ //
 
@@ -41,7 +41,7 @@ class ValidEmail extends \aw\formfields\validation\Valid
         if (!filter_var($this->getValue(), FILTER_VALIDATE_EMAIL)) {
             throw new \aw\formfields\validation\ValidationException(
                 'Invalid email address',
-                1000
+                1002
             );
         }
     }
