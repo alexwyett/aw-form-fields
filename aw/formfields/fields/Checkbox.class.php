@@ -39,7 +39,7 @@ class Checkbox extends \aw\formfields\fields\TextField
     /**
      * Set the new checked state
      * 
-     * @param type $checked Checked state
+     * @param boolean $checked Checked state
      * 
      * @return void
      */
@@ -47,6 +47,10 @@ class Checkbox extends \aw\formfields\fields\TextField
     {
         if (is_bool($checked)) {
             $this->checked = $checked;
+            
+            if ($this->getRule()) {
+                $this->getRule()->setValue($checked);
+            }
         }
         return $this;
     }
