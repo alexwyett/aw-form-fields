@@ -98,6 +98,8 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
     {
         $select = new \aw\formfields\fields\SelectField('selectfield2');
         $this->assertEquals('', $select->renderChildren());
+        $this->assertEquals('', $select->getValue());
+        $this->assertNull($select->getSelected());
 
         // Create a new option
         $op = new \aw\FormFields\fields\Option('Select', '');
