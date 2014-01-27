@@ -137,7 +137,7 @@ class SelectField extends \aw\formfields\fields\ParentElement
     {
         foreach ($this->getChildren() as $child) {
             $child->setSelected(false);
-            if ($child->getValue() === $value) {
+            if ($child->getValue() == $value) {
                 $child->setSelected(true);
             }
         }
