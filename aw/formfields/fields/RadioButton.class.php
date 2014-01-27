@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @inheritdoc
+ * Radio button object
  *
  * PHP Version 5.3
  *
@@ -16,7 +16,7 @@
 namespace aw\formfields\fields;
 
 /**
- * Checkbox object
+ * Radio button object
  *
  * PHP Version 5.3
  * 
@@ -27,7 +27,7 @@ namespace aw\formfields\fields;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class RadioButton extends \aw\formfields\fields\TextField
+class RadioButton extends \aw\formfields\fields\Checkbox
 {
     
 }
