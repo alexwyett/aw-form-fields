@@ -16,9 +16,7 @@
 // Include autoloader
 require_once 'selectfield.php';
 
-$sf->setValidationRule(
-    \aw\formfields\validation\Valid::factory(true)
-);
+$sf->setRule('Valid');
 
 // Reset the output buffer
 ob_clean();
@@ -27,13 +25,27 @@ ob_clean();
 $form = new \aw\formfields\forms\Form();
 $form->addChild($sf);
 
-
 // Output
 echo $form->validate();
 
 // Test a new form which store submitted values
 $form2 = new \aw\formfields\forms\Form(array(), $_GET);
 $form2->addChild($sf2);
+
+// Add radio buttons
+$form2->addChild(
+    new \aw\formfields\fields\RadioButton(
+        'number',
+        array('value' => 'one')
+    )
+);
+$form2->addChild(
+    new \aw\formfields\fields\RadioButton(
+        'number',
+        array('value' => 'two')
+    )
+);
+
 $form2->addChild(
     new \aw\formfields\fields\SubmitButton(
         array(
