@@ -183,12 +183,13 @@ class Form extends \aw\formfields\fields\ParentElement
                 if ($ele->getName() 
                     && array_key_exists($ele->getName(), $form->getFormValues())
                 ) {
-                    if (method_exists($ele, 'setChecked')
-                        && ($ele->getValue() == $form->getFormValue($ele->getName())
-                        || $form->getFormValue($ele->getName()) == 'on')
+                    if (method_exists($ele, 'setChecked') 
+                        && $ele->getValue() == $form->getFormValue($ele->getName())
                     ) {
                         $ele->setChecked(true);
-                    } else {
+                    }
+                    
+                    if (!method_exists($ele, 'setChecked')) {
                         $ele->setValue($form->getFormValue($ele->getName()));
                     }
                 }
