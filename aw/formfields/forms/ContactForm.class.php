@@ -71,30 +71,12 @@ class ContactForm extends \aw\formfields\forms\Form
         $label = self::_getNewLabelAndTextField('Surname', 'Valid', true);
         $fs->addChild($label);
         
-        // Add fieldset to form
-        $form->addChild($fs);
-        
-        // New Fieldset
-        $fs = \aw\formfields\fields\Fieldset::factory(
-            'Your Contact Details',
-            array(
-                'class' => 'your-details'
-            )
-        );
-        
-        // Add email TODO: Add validation rule in
+        // Add email
         $label = self::_getNewLabelAndTextField('Email', 'ValidEmail');
         $fs->addChild($label);
         
-        // Email optin checkbox
-        $label = new \aw\formfields\fields\Label(
-            'Subscribe to email list?', 
-            array('for' => 'emailoptin')
-        );
-        $label->addChild(
-            new \aw\formfields\fields\Checkbox('emailoptin')
-        );
-        $fs->addChild($label);
+        // Add fieldset to form
+        $form->addChild($fs);;
         
         // Add fieldset to form
         $form->addChild($fs);
