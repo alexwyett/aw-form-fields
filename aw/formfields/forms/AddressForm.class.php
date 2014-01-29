@@ -35,12 +35,14 @@ class AddressForm extends \aw\formfields\forms\Form
      * 
      * @param array $attributes Form attributes
      * @param array $formValues Form Values
+     * @param array $countries  Countries in alpha2 => Name format
      * 
      * @return void
      */
     public static function factory(
         $attributes = array(),
-        $formValues = array()
+        $formValues = array(),
+        $countries = array()
     ) {
         // New form object
         $form = new \aw\formfields\forms\Form($attributes, $formValues);
@@ -103,6 +105,28 @@ class AddressForm extends \aw\formfields\forms\Form
 
             $fs->addChild(
                 $label->addChild($tf)
+            );
+        }
+        
+        if (count($countries) > 0) {
+            $label = new \aw\formfields\fields\Label(
+                'Country', 
+                array('for' => 'Country')
+            );
+
+            $sf = \aw\formfields\fields\SelectField::factory(
+                'country', 
+                $countries,
+                array(
+                    'id' => 'country'
+                )
+            );
+
+            // Add validation rule if required
+            $sf->setRule('ValidString')->getRule()->setRequired(true);
+
+            $fs->addChild(
+                $label->addChild($sf)
             );
         }
         
