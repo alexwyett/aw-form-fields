@@ -16,7 +16,17 @@
 // Include autoloader
 require_once '../../autoload.php';
 
-$form = \aw\formfields\forms\AddressForm::factory(array(), $_GET);
+$form = \aw\formfields\forms\AddressForm::factory(
+    array(), 
+    $_GET,
+    array(
+        'Select' => '',
+        'United Kingdom' => 'GB'
+    )
+);
+
+// Set the value of the country field to default to UK
+$form->getElementBy('getName', 'country', 0)->setValue('GB');
 
 if (count($_GET)) {
     echo $form->validate();

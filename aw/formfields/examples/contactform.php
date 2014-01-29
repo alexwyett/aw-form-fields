@@ -18,6 +18,20 @@ require_once '../../autoload.php';
 
 $form = \aw\formfields\forms\ContactForm::factory(array(), $_GET);
 
+// Apply a different template to each of the labels
+$form->each('getType', 'label', function($label) {
+    $label->setTemplate(
+        '<div class="row">'
+            . '<div class="col">'
+            . ' <label{implodeAttributes}>{getLabel}</label>'
+            . '</div>'
+            . '<div class="col">'
+            . '{renderChildren}'
+            . '</div>'
+        . '</div>'
+    );
+});
+
 if (count($_GET)) {
     echo $form->validate();
 } else {
