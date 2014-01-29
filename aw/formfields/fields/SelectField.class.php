@@ -139,6 +139,11 @@ class SelectField extends \aw\formfields\fields\ParentElement
             $child->setSelected(false);
             if ($child->getValue() == $value) {
                 $child->setSelected(true);
+
+                // Set value to validation rule if present
+                if ($this->getRule()) {
+                    $this->getRule()->setValue($value);
+                }
             }
         }
         return $this;
