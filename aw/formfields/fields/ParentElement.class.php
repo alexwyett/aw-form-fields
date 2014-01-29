@@ -63,6 +63,24 @@ abstract class ParentElement extends \aw\formfields\fields\Element
         $this->children = array_merge($this->getChildren(), $children);
         return $this;
     }
+    
+    /**
+     * Loop function to apply a callback to a particular accessor pattern
+     * 
+     * @param string   $accessor Accessor method to call
+     * @param string   $value    Comparison value
+     * @param function $callback Callback function to apply
+     * 
+     * @return void
+     */
+    public function each($accessor, $value, $callback = null)
+    {
+        foreach ($this->getElementBy($accessor, $value) as $ele) {
+            if (is_callable($callback)) {
+                $callback($ele);
+            }
+        }
+    }
 
     /**
      * Render object children
@@ -105,12 +123,14 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     /**
      * Return a child object or objects from the parent
      * 
-     * @param string $accessor Accessor method to call
-     * @param string $value    Comparison value
+     * @param string  $accessor Accessor method to call
+     * @param string  $value    Comparison value
+     * @param integer $index    Index of array to return if you're sure the
+     * method will return an array!
      * 
      * @return array
      */
-    public function getElementBy($accessor, $value)
+    public function getElementBy($accessor, $value, $index = null)
     {
         $objects = array();
         self::traverseChildren(
@@ -123,7 +143,12 @@ abstract class ParentElement extends \aw\formfields\fields\Element
                 }
             }
         );
-        return $objects;
+        
+        if (is_numeric($index) && isset($objects[$index])) {
+            return $objects[$index];
+        } else {
+            return $objects;
+        }
     }
 
     /**
