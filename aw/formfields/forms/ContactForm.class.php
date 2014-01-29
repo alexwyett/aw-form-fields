@@ -68,15 +68,12 @@ class ContactForm extends \aw\formfields\forms\Form
         $fs->addChild($label);
         
         // Add surname
-        $label = self::_getNewLabelAndTextField('Surname', 'Valid', true);
+        $label = self::_getNewLabelAndTextField('Surname', 'ValidString', true);
         $fs->addChild($label);
         
         // Add email
         $label = self::_getNewLabelAndTextField('Email', 'ValidEmail');
         $fs->addChild($label);
-        
-        // Add fieldset to form
-        $form->addChild($fs);;
         
         // Add fieldset to form
         $form->addChild($fs);
