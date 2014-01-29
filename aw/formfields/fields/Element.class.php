@@ -71,6 +71,14 @@ abstract class Element
      */
     protected $rule = null;
     
+    /**
+     * Parent object
+     * 
+     * @var object reference
+     */
+    protected $parent = null;
+
+
     // ------------------------- Public Methods ---------------------------- //
         
     /**
@@ -256,6 +264,19 @@ abstract class Element
     }
     
     /**
+     * Set a parent element reference
+     * 
+     * @param object &$parent Parent objects reference
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function setParent(\aw\formfields\fields\Element &$parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+    
+    /**
      * Set the template
      * 
      * @param string $template Element template
@@ -320,6 +341,16 @@ abstract class Element
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * Return a parent object
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
     
     /**

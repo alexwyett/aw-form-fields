@@ -41,12 +41,13 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     /**
      * Add a child to the element
      * 
-     * @param object $child Elements child
+     * @param aw\forms\fields\Element $child Elements child
      * 
      * @return aw\forms\fields\Element
      */
     public function addChild($child)
     {
+        $child->setParent($this);
         $this->children[] = $child;
         return $this;
     }
@@ -60,7 +61,9 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      */
     public function addChildren($children)
     {
-        $this->children = array_merge($this->getChildren(), $children);
+        foreach ($children as $child) {
+            $this->addChild($child);
+        }
         return $this;
     }
     
@@ -173,11 +176,12 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      */
     public static function traverseChildren($object, $callback)
     {
-        call_user_func($callback, $object);
         if (method_exists($object, 'hasChildren')) {
             foreach ($object->getChildren() as $child) {
                 self::traverseChildren($child, $callback);
             }
+        } else {
+            call_user_func($callback, $object);
         }
     }
     
