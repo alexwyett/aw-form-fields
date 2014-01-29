@@ -64,6 +64,9 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
             array(),
             '7'
         );
+
+        // Add simple validation
+        $this->selectField->setRule('ValidString');
     }
 
     /**
@@ -87,6 +90,11 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
         $this->selectField->setValue(2);
         $this->assertEquals('2', $this->selectField->getValue());
         $this->assertEquals('Two', $this->selectField->getSelected()->getDisplayValue());
+
+        // Test validation
+        $this->assertTrue($this->selectField->getRule()->validateNull());
+        $this->assertTrue($this->selectField->getRule()->validateString());
+        $this->assertTrue($this->selectField->getRule()->validate());
     }
 
     /**
@@ -111,5 +119,31 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
         
         $op2 = $select->getChild(0);
         $this->assertEquals('Select', $op2->getDisplayValue());
+    }
+
+    /**
+     * Test that an exception is thrown on validation failure
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testSelectFieldValidationNullException()
+    {
+        // Set value to be null
+        $this->selectField->setValue(null)->getRule()->validateNull();
+    }
+
+    /**
+     * Test that an exception is thrown on string validation failure
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testSelectFieldValidationStringException()
+    {
+        // Set value to be empty string
+        $this->selectField->setValue('')->getRule()->validateString();
     }
 }

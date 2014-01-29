@@ -47,5 +47,19 @@ class FieldsetAndLegendTest extends PHPUnit_Framework_TestCase
         $elements = $fs->getElementBy('getName', 'mytextfield');
         $this->assertEquals(1, count($elements));
         $this->assertEquals('mytextfield', $elements[0]->getName());
+
+        // Get a single child element by its accessor
+        $element = $fs->getElementBy('getName', 'mytextfield', 0);
+        $this->assertEquals('mytextfield', $element->getName());
+        
+        // Test the each function
+        $fs->each('getName', 'mytextfield', function($ele) {
+            $ele->setValue('test');
+        });
+        $this->assertEquals(
+            '<fieldset><legend>Test Fieldset</legend><input type="text" name="mytextfield" value="test"></fieldset>',
+            (string) $fs
+        );
+
     }
 }
