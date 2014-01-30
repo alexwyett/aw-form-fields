@@ -32,6 +32,16 @@ $form->each('getType', 'label', function($label) {
     );
 });
 
+// Add another wrapper around title, initial, surname
+$form->getElementBy('getName', 'title')->getParent()->prependTemplate(
+    '<div class="row name">'
+);
+
+// Add another wrapper around title, initial, surname
+$form->getElementBy('getName', 'surname')->getParent()->appendTemplate(
+    '</div>'
+);
+
 if (count($_GET)) {
     echo $form->validate();
 } else {
