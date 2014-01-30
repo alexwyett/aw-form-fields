@@ -70,5 +70,13 @@ class TextareaTest extends PHPUnit_Framework_TestCase
             '<textarea id="textarea" class="textarea testing" name="textarea">A Value</textarea>',
             $this->textarea->render()
         );
+        
+        // Change the template
+        $this->textarea->prependTemplate('<div>');
+        $this->textarea->appendTemplate('</div>');
+        $this->assertEquals(
+            '<div><textarea id="textarea" class="textarea testing" name="textarea">A Value</textarea></div>',
+            $this->textarea->render()
+        );
     }
 }

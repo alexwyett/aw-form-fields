@@ -36,28 +36,38 @@ class FieldsetAndLegendTest extends PHPUnit_Framework_TestCase
      */
     public function testFieldsetCollection()
     {
-        $textfield = new \aw\formfields\fields\TextField('mytextfield');
-        $fs = \aw\formfields\fields\Fieldset::factory('Test Fieldset', array(), array($textfield));
+        $fs = \aw\formfields\fields\Fieldset::factory(
+            'Test Fieldset', 
+            array(), 
+            array(
+                new \aw\formfields\fields\TextField('mytextfield'), 
+                new \aw\formfields\fields\TextField('mytextfield2')
+            )
+        );
+        
         $this->assertEquals(
-            '<fieldset><legend>Test Fieldset</legend><input type="text" name="mytextfield"></fieldset>',
+            '<fieldset><legend>Test Fieldset</legend><input type="text" name="mytextfield"><input type="text" name="mytextfield2"></fieldset>',
             (string) $fs
         );
 
         // Get a child element by its accessor
-        $elements = $fs->getElementBy('getName', 'mytextfield');
-        $this->assertEquals(1, count($elements));
-        $this->assertEquals('mytextfield', $elements[0]->getName());
+        $element = $fs->getElementBy('getName', 'mytextfield');
+        $this->assertEquals('mytextfield', $element->getName());
 
         // Get a single child element by its accessor
         $element = $fs->getElementBy('getName', 'mytextfield', 0);
         $this->assertEquals('mytextfield', $element->getName());
+
+        // Get multiple elements
+        $elements = $fs->getElementBy('getType', 'text');
+        $this->assertEquals(2, count($elements));        
         
         // Test the each function
         $fs->each('getName', 'mytextfield', function($ele) {
             $ele->setValue('test');
         });
         $this->assertEquals(
-            '<fieldset><legend>Test Fieldset</legend><input type="text" name="mytextfield" value="test"></fieldset>',
+            '<fieldset><legend>Test Fieldset</legend><input type="text" name="mytextfield" value="test"><input type="text" name="mytextfield2"></fieldset>',
             (string) $fs
         );
 
