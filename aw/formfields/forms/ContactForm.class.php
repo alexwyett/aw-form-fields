@@ -75,6 +75,14 @@ class ContactForm extends \aw\formfields\forms\Form
         $label = self::_getNewLabelAndTextField('Email', 'ValidEmail');
         $fs->addChild($label);
         
+        // Add telephone
+        $label = self::_getNewLabelAndTextField('Telephone', 'ValidString', true);
+        $fs->addChild($label);
+        
+        // Add mobile telephone
+        $label = self::_getNewLabelAndTextField('Mobile');
+        $fs->addChild($label);
+        
         // Add fieldset to form
         $form->addChild($fs);
         
@@ -130,7 +138,7 @@ class ContactForm extends \aw\formfields\forms\Form
         $validationRule = 'Valid',
         $required = false
     ) {
-        $name = strtolower($label);
+        $name = self::slugify($label, '_');
         $label = new \aw\formfields\fields\Label(
             $label, 
             array('for' => $name)
