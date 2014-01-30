@@ -56,6 +56,27 @@ class BrochureForm extends \aw\formfields\forms\Form
         // Set the value of the country field to default to UK
         $form->getElementBy('getName', 'country')->setValue('GB');
         
+        // Fieldset
+        $fs = \aw\formfields\fields\Fieldset::factory(
+            'Optional Details',
+            array(
+                'class' => 'optional-details'
+            )
+        );
+        
+        // Start creating/adding fields and adding them to the fieldset
+        $label = new \aw\formfields\fields\Label(
+            'Please tick here if you like to here about our special offers', 
+            array('for' => 'emailoptin')
+        );
+        $label->addChild(
+            new \aw\formfields\fields\Checkbox('emailoptin')
+        );
+        $fs->addChild($label);
+        
+        // Add optional details form
+        $form->addChild($fs);
+        
         // Add submit button
         $form->addChild(
             new \aw\formfields\fields\SubmitButton(
