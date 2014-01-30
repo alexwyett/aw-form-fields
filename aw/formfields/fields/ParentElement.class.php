@@ -78,7 +78,7 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      */
     public function each($accessor, $value, $callback = null)
     {
-        foreach ($this->getElementBy($accessor, $value) as $ele) {
+        foreach ($this->getElementsBy($accessor, $value) as $ele) {
             if (is_callable($callback)) {
                 $callback($ele);
             }
@@ -128,6 +128,23 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      * 
      * @param string  $accessor Accessor method to call
      * @param string  $value    Comparison value
+     * 
+     * @return array
+     */
+    public function getElementsBy($accessor, $value)
+    {
+        $elements = $this->getElementBy($accessor, $value);
+        if (!is_array($elements)) {
+            $elements = array($elements);
+        }
+        return $elements;
+    }
+    
+    /**
+     * Return a child object or objects from the parent
+     * 
+     * @param string  $accessor Accessor method to call
+     * @param string  $value    Comparison value
      * @param integer $index    Index of array to return if you're sure the
      * method will return an array!
      * 
@@ -146,6 +163,12 @@ abstract class ParentElement extends \aw\formfields\fields\Element
                 }
             }
         );
+        
+        // Set index to be the first element if there is only one
+        // element in the array
+        if (count($objects) == 1) {
+            $index = 0;
+        }
         
         if (is_numeric($index) && isset($objects[$index])) {
             return $objects[$index];
@@ -176,12 +199,11 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      */
     public static function traverseChildren($object, $callback)
     {
+        call_user_func($callback, $object);
         if (method_exists($object, 'hasChildren')) {
             foreach ($object->getChildren() as $child) {
                 self::traverseChildren($child, $callback);
             }
-        } else {
-            call_user_func($callback, $object);
         }
     }
     
