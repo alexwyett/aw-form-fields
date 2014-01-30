@@ -101,6 +101,26 @@ class Form extends \aw\formfields\fields\ParentElement
         );
     }
     
+    /**
+     * Slug function - using this to convert label names into form 
+     * element names
+     * 
+     * @see http://cubiq.org/the-perfect-php-clean-url-generator
+     * 
+     * @param string $str       String to slugify
+     * @param string $delimiter Separator to use
+     * 
+     * @return string
+     */
+    public static function slugify($str, $delimiter='-')
+    {
+	$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+	$clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+	$clean = strtolower(trim($clean, '-'));
+	$clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+	return $clean;
+    }
+    
     // ---------------------- Accessor Methods ----------------------------- //
         
     /**
