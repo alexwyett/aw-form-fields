@@ -28,7 +28,7 @@ namespace aw\formfields\fields;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class SelectField extends \aw\formfields\fields\ParentElement
+class SelectInput extends \aw\formfields\fields\ParentElement
 {
     /**
      * Factory method for creating a select box
@@ -38,7 +38,7 @@ class SelectField extends \aw\formfields\fields\ParentElement
      * @param array  $attributes  Element attributes
      * @param string $selectedVal Value of selected element
      * 
-     * @return \aw\formfields\fields\SelectField
+     * @return \aw\formfields\fields\SelectInput
      */
     public static function factory(
         $name, 
@@ -46,7 +46,7 @@ class SelectField extends \aw\formfields\fields\ParentElement
         $attributes = array(), 
         $selectedVal = null
     ) {
-        $select = new \aw\formfields\fields\SelectField($name, $attributes);
+        $select = new \aw\formfields\fields\SelectInput($name, $attributes);
         foreach ($values as $key => $val) {
 
             if (is_array($val) && isset($val['value'])) {
@@ -131,7 +131,7 @@ class SelectField extends \aw\formfields\fields\ParentElement
      * 
      * @param string $value Value to be selected
      * 
-     * @return \aw\formfields\fields\SelectField
+     * @return \aw\formfields\fields\SelectInput
      */
     public function setValue($value)
     {

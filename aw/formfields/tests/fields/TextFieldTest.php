@@ -32,7 +32,7 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     /**
      * Text field
      * 
-     * @var \aw\formfields\fields\TextField
+     * @var \aw\formfields\fields\TextInput
      */
     public $textField;
 
@@ -43,7 +43,7 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->textField = new \aw\formfields\fields\TextField(
+        $this->textField = new \aw\formfields\fields\TextInput(
             'textfield', 
             array(
                 'id' => 'textfield',
@@ -84,7 +84,7 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<input type="text" id="newId" name="textfield" value="A Value">', (string) $this->textField);
 
 
-        $textField2 = new \aw\formfields\fields\TextField(
+        $textField2 = new \aw\formfields\fields\TextInput(
             'textfield', 
             array(
                 'id' => 'textfield',

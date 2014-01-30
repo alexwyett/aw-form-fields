@@ -241,7 +241,7 @@ abstract class Element
      * 
      * @param string $class Element Class
      * 
-     * @return aw\forms\fields\TextField
+     * @return aw\forms\fields\Element
      */
     public function setClass($class)
     {
@@ -258,7 +258,7 @@ abstract class Element
      * 
      * @param string $id Element ID
      * 
-     * @return aw\forms\fields\TextField
+     * @return aw\forms\fields\Element
      */
     public function setId($id)
     {
@@ -275,7 +275,7 @@ abstract class Element
      * 
      * @param string $name Element Name
      * 
-     * @return aw\forms\fields\TextField
+     * @return aw\forms\fields\Element
      */
     public function setName($name)
     {
@@ -407,7 +407,7 @@ abstract class Element
         $type = strtolower(get_called_class());
         $keywords = array(
             __NAMESPACE__ . '\\',
-            'field',
+            'input',
             'button'
         );
         foreach ($keywords as $keyword) {

@@ -87,7 +87,7 @@ class AddressForm extends \aw\formfields\forms\Form
                 array('for' => $name)
             );
 
-            $tf = new \aw\formfields\fields\TextField(
+            $tf = new \aw\formfields\fields\TextInput(
                 $name, 
                 array(
                     'id' => $name
@@ -114,7 +114,7 @@ class AddressForm extends \aw\formfields\forms\Form
                 array('for' => 'Country')
             );
 
-            $sf = \aw\formfields\fields\SelectField::factory(
+            $sf = \aw\formfields\fields\SelectInput::factory(
                 'country', 
                 $countries,
                 array(

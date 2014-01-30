@@ -28,7 +28,7 @@ namespace aw\formfields\fields;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class Textarea extends \aw\formfields\fields\TextField
+class Textarea extends \aw\formfields\fields\TextInput
 {
     /**
      * Constructor
@@ -36,7 +36,7 @@ class Textarea extends \aw\formfields\fields\TextField
      * @param string $name       Field name
      * @param array  $attributes Field attributes
      * 
-     * @return aw\forms\fields\TextField
+     * @return aw\forms\fields\TextInput
      */
     public function __construct($name, $attributes = array())
     {

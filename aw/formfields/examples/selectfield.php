@@ -17,7 +17,7 @@
 require_once '../../autoload.php';
 
 // Instantiate a new text area field
-$sf = new \aw\formfields\fields\SelectField('test');
+$sf = new \aw\formfields\fields\SelectInput('test');
 
 // Add a option
 $sf->addChild(
@@ -28,7 +28,7 @@ $sf->addChild(
 echo $sf;
 
 // Try out the factory method with a selected value
-$sf2 = \aw\formfields\fields\SelectField::factory(
+$sf2 = \aw\formfields\fields\SelectInput::factory(
     'test2',
     array(
         'Select' => '',

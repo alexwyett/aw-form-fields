@@ -43,7 +43,7 @@ abstract class ValueElement extends \aw\formfields\fields\Element
      * 
      * @param string $value Element Value
      * 
-     * @return aw\forms\fields\TextField
+     * @return aw\forms\fields\ValueElement
      */
     public function setValue($value)
     {

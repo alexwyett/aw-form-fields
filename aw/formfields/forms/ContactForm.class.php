@@ -105,7 +105,7 @@ class ContactForm extends \aw\formfields\forms\Form
      */
     public static function getTitleSelect()
     {
-        return \aw\formfields\fields\SelectField::factory(
+        return \aw\formfields\fields\SelectInput::factory(
             'title', 
             array(
                 'Mr' => 'Mr',
@@ -144,7 +144,7 @@ class ContactForm extends \aw\formfields\forms\Form
             array('for' => $name)
         );
 
-        $tf = new \aw\formfields\fields\TextField(
+        $tf = new \aw\formfields\fields\TextInput(
             $name, 
             array(
                 'id' => $name

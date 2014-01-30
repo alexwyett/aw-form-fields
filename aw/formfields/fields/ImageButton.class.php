@@ -42,7 +42,7 @@ class ImageButton extends \aw\formfields\fields\ValueElement
      * @param string $src        Image source
      * @param array  $attributes Field attributes
      * 
-     * @return aw\forms\fields\TextField
+     * @return void
      */
     public function __construct($src, $attributes = array())
     {

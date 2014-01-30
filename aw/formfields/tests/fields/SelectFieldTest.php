@@ -32,7 +32,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
     /**
      * Select field
      * 
-     * @var \aw\formfields\fields\SelectField
+     * @var \aw\formfields\fields\SelectInput
      */
     public $selectField;
 
@@ -43,7 +43,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->selectField = \aw\formfields\fields\SelectField::factory(
+        $this->selectField = \aw\formfields\fields\SelectInput::factory(
             'selectfield',
             array(
                 'Select' => '',
@@ -107,7 +107,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
      */
     public function testEmptySelect()
     {
-        $select = new \aw\formfields\fields\SelectField('selectfield2');
+        $select = new \aw\formfields\fields\SelectInput('selectfield2');
         $this->assertEquals('', $select->renderChildren());
         $this->assertEquals('', $select->getValue());
         $this->assertNull($select->getSelected());

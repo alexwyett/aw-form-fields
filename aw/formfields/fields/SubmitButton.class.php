@@ -35,7 +35,7 @@ class SubmitButton extends \aw\formfields\fields\ValueElement
      * @param string $name       Field name
      * @param array  $attributes Field attributes
      * 
-     * @return aw\forms\fields\TextField
+     * @return void
      */
     public function __construct($attributes = array())
     {

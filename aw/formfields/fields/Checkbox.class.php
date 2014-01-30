@@ -27,7 +27,7 @@ namespace aw\formfields\fields;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class Checkbox extends \aw\formfields\fields\TextField
+class Checkbox extends \aw\formfields\fields\TextInput
 {
     /**
      * Checked state

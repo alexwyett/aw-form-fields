@@ -17,13 +17,13 @@
 require_once '../../autoload.php';
 
 // Instantiate a new text field
-$tf = new \aw\formfields\fields\TextField('test');
+$tf = new \aw\formfields\fields\TextInput('test');
 
 // Output field
 echo $tf;
 
 // Instantiate a new text field with attributes
-$tf2 = new \aw\formfields\fields\TextField(
+$tf2 = new \aw\formfields\fields\TextInput(
     'test2',
     array(
         'class' => 'testClass',
@@ -38,7 +38,7 @@ echo $tf2;
 echo $tf2->getValue();
 
 // Instantiate a new text field to validate
-$tf3 = new \aw\formfields\fields\TextField('test');
+$tf3 = new \aw\formfields\fields\TextInput('test');
 $tf3->setRequired(true);
 
 // Outputs false as no value is set

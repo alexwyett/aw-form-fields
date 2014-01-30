@@ -40,8 +40,8 @@ class FieldsetAndLegendTest extends PHPUnit_Framework_TestCase
             'Test Fieldset', 
             array(), 
             array(
-                new \aw\formfields\fields\TextField('mytextfield'), 
-                new \aw\formfields\fields\TextField('mytextfield2')
+                new \aw\formfields\fields\TextInput('mytextfield'), 
+                new \aw\formfields\fields\TextInput('mytextfield2')
             )
         );
         
