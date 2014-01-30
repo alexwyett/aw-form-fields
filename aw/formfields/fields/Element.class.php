@@ -107,6 +107,18 @@ abstract class Element
     {
         return $this->setClass($this->getClass() . ' ' . $class);
     }
+    
+    /**
+     * Append markup to the existing template
+     * 
+     * @param string $template Template string
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function appendTemplate($template)
+    {
+        return $this->setTemplate($this->getTemplate() . $template);
+    }
         
     /**
      * Remove a field attribute
@@ -125,6 +137,18 @@ abstract class Element
                 $this->$key = null;
             }
         }
+    }
+    
+    /**
+     * Prepend markup to the existing template
+     * 
+     * @param string $template Template string
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function prependTemplate($template)
+    {
+        return $this->setTemplate($template . $this->getTemplate());
     }
     
     /**
