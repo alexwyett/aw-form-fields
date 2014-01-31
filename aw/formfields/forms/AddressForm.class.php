@@ -35,7 +35,7 @@ class AddressForm extends \aw\formfields\forms\Form
      * 
      * @param array $attributes Form attributes
      * @param array $formValues Form Values
-     * @param array $countries  Countries in alpha2 => Name format
+     * @param array $countries  Countries in Name => Alpha2 format
      * 
      * @return void
      */
