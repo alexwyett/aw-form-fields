@@ -135,7 +135,7 @@ class ContactForm extends \aw\formfields\forms\Form
      */
     private static function _getNewLabelAndTextField(
         $label,  
-        $validationRule = 'Valid',
+        $validationRule = null,
         $required = false
     ) {
         $name = self::slugify($label, '_');
