@@ -65,7 +65,7 @@ class ValidCheckedState extends \aw\formfields\validation\Valid
         if ($this->getValue() === false) {
             throw new \aw\formfields\validation\ValidationException(
                 'Required',
-                1004
+                1003
             );
         }
     }
