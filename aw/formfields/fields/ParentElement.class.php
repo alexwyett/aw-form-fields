@@ -148,7 +148,7 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      * @param integer $index    Index of array to return if you're sure the
      * method will return an array!
      * 
-     * @return array
+     * @return \aw\formfields\fields\Element|Array
      */
     public function getElementBy($accessor, $value, $index = null)
     {
