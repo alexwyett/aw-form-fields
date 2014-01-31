@@ -14,7 +14,7 @@
  */
 
 // Include autoloader
-require_once '../../autoload.php';
+require_once '../autoload.php';
 
 // Instantiate a new text area field
 $sf = new \aw\formfields\fields\SelectInput('test');

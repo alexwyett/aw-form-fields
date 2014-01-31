@@ -14,7 +14,7 @@
  */
 
 // Include autoloader
-require_once '../../autoload.php';
+require_once '../autoload.php';
 
 $form = \aw\formfields\forms\AddressForm::factory(
     array(), 

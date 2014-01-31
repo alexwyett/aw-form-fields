@@ -13,7 +13,7 @@
  * @link      http://www.github.com/alexwyett
  */
 
-require_once '../../autoload.php';
+require_once '../autoload.php';
 
 /**
  * SelectField PHPUnit Test case

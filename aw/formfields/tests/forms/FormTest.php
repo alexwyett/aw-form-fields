@@ -13,7 +13,7 @@
  * @link      http://www.github.com/alexwyett
  */
 
-require_once '../../autoload.php';
+require_once '../autoload.php';
 
 /**
  * Form Object PHPUnit Test case
@@ -134,7 +134,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 array(),
-                7
+                8
             ),
             array(
                 array(
@@ -144,14 +144,14 @@ class FormTest extends PHPUnit_Framework_TestCase
                     'postcode' => 'OFN0WRE',
                     'emailoptin' => 'on'
                 ),
-                3
+                4
             ),
             array(
                 array(
                     'email' => 'invalid email address',
                     'town' => 'Somehwere'
                 ),
-                6
+                7
             )
         );
     }
