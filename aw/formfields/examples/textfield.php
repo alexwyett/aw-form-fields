@@ -27,7 +27,7 @@ $tf2 = new \aw\formfields\fields\TextInput(
     'test2',
     array(
         'class' => 'testClass',
-        'value' => 'Test'
+        'value' => 'Test2'
     )
 );
 
@@ -39,17 +39,10 @@ echo $tf2->getValue();
 
 // Instantiate a new text field to validate
 $tf3 = new \aw\formfields\fields\TextInput('test');
-$tf3->setRequired(true);
-
-// Outputs false as no value is set
-var_dump($tf3->validate());
-
-// Set value.  You could use setValue bu that 
-// wouldn't the the object attribute then
-$tf3->setValue('test');
+$tf3->setRule('ValidString')->setValue('Test 3');
 
 // Outputs false as value is now set
-var_dump($tf3->validate());
+var_dump($tf3->getRule()->validate());
 
 // Output field
 echo $tf3;

@@ -22,6 +22,12 @@ $form = \aw\formfields\forms\BrochureForm::factory(
     array(
         'Select' => '',
         'United Kingdom' => 'GB'
+    ),
+    array(
+        'Select' => '',
+        'Google Ads' => 'GOO',
+        'Other Search Engine' => 'SRCH',
+        'Newspaper' => 'NEW'
     )
 );
 
