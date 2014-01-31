@@ -157,6 +157,54 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         // Set value to be empty string
         $this->textField->setValue('')->getRule()->validate();
     }
+    
+    /**
+     * Test email validation
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testEmailValidationException()
+    {
+        $this->textField->setRule('ValidEmail')->setValue('')->getRule()->validate();
+    }
+    
+    /**
+     * Test email validation
+     * 
+     * @return void
+     */
+    public function testEmailValidation()
+    {
+        $this->textField->setRule('ValidEmail')->setValue('email@example.com')->getRule()->validate();
+    }
+    
+    /**
+     * Test email validation
+     * 
+     * @expectedException \aw\formfields\validation\ValidationException
+     * 
+     * @return void
+     */
+    public function testEmailValidationExceptionTwo()
+    {
+        $this->textField->setRule('ValidEmail')->setValue('email@')->getRule()->validate();
+    }
+    
+    /**
+     * Test email validation
+     * 
+     * @return void
+     */
+    public function testEmailValidationExceptionCode()
+    {
+        try {
+            $this->textField->setRule('ValidEmail')->setValue('')->getRule()->validate();
+        } catch(\aw\formfields\validation\ValidationException $e) {
+            $this->assertEquals('aw\formfields\validation\ValidationException: [1002]: Invalid email address', (string) $e);
+        }
+    }
 
     /**
      * Test exception methods
