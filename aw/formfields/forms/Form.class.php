@@ -189,6 +189,16 @@ class Form extends \aw\formfields\fields\ParentElement
     // -------------------------- Helper Methods -------------------------- //
     
     /**
+     * Return tue if the form has no errors
+     * 
+     * @return boolean
+     */
+    public function isValid()
+    {
+        return (count($this->getErrors()) == 0);
+    }
+    
+    /**
      * Public mapping function. Returns the form object for chainability(?!)
      * 
      * @return \aw\formfields\forms\Form
