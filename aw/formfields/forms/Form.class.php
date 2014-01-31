@@ -163,6 +163,16 @@ class Form extends \aw\formfields\fields\ParentElement
     }
     
     /**
+     * Return any form errors which may have been set from validating the form
+     * 
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+    
+    /**
      * Set a validation error
      * 
      * @param string $element Element name
