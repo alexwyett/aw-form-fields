@@ -77,6 +77,24 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
     }
     
     /**
+     * Label & element testing
+     * 
+     * @return void
+     */
+    public function testCheckboxWithLabel()
+    {
+        $cb = $this->_getNewCheckbox();
+        $label = new aw\formfields\fields\Label('Checkbox label');
+        $label->addChild($cb);
+        
+        $this->assertEquals('Checkbox label', $label->getLabel());
+        $this->assertEquals(
+            '<label>Checkbox label<input type="checkbox" name="myfunkycheckbox"></label>',
+            $label->render()
+        );
+    }
+    
+    /**
      * Test checkbox object with a validation rule
      * 
      * @expectedException \aw\formfields\validation\ValidationException
@@ -88,6 +106,21 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
         $this->_getNewCheckbox()
                 ->setRule('ValidCheckedState')
                 ->getRule()->validateChecked();
+    }
+
+    /**
+     * Test exception methods
+     * 
+     * @return void
+     */
+    public function testValidationMethodCode()
+    {
+        try {
+            $this->testNewCheckboxWithRuleThrowsException();
+        } catch(\aw\formfields\validation\ValidationException $e) {
+            // Test __toString()
+            $this->assertEquals('aw\formfields\validation\ValidationException: [1003]: Required', (string) $e);
+        }
     }
     
     /**
