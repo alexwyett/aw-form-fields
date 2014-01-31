@@ -97,4 +97,62 @@ class FormTest extends PHPUnit_Framework_TestCase
             $brochureForm->getElementBy('getName', 'emailoptin')->isChecked()
         );
     }
+    
+    /**
+     * Validation method
+     * 
+     * @param array   $fields Form field values
+     * @param integer $result Number of validation errors returned
+     * 
+     * @dataProvider validationProvider
+     */
+    public function testValidation($fields, $result)
+    {
+        $brochureForm = \aw\formfields\forms\BrochureForm::factory(
+            array(), 
+            $fields, 
+            array(
+                'Select' => '',
+                'United Kingdom' => 'GB'
+            )
+        );
+        $brochureForm->mapValues();
+        
+        $this->assertEquals(
+            $result, 
+            count($brochureForm->validate()->getErrors())
+        );
+    }
+    
+    /**
+     * Validation data provider
+     * 
+     * @return array
+     */
+    public function validationProvider()
+    {
+        return array(
+            array(
+                array(),
+                7
+            ),
+            array(
+                array(
+                    'addr1' => '1 anywhere road',
+                    'town' => 'Somehwere',
+                    'county' => 'In the middle',
+                    'postcode' => 'OFN0WRE',
+                    'emailoptin' => 'on'
+                ),
+                3
+            ),
+            array(
+                array(
+                    'email' => 'invalid email address',
+                    'town' => 'Somehwere'
+                ),
+                6
+            )
+        );
+    }
 }
