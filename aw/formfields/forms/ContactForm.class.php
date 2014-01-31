@@ -54,34 +54,35 @@ class ContactForm extends \aw\formfields\forms\Form
         );
         
         // Start creating/adding fields and adding them to the fieldset
-        $label = new \aw\formfields\fields\Label(
-            'Title', 
-            array('for' => 'title')
+        $fs->addChild(
+            self::getNewLabelAndSelect(
+                'Title', 
+                array(
+                    'Mr' => 'Mr',
+                    'Mrs' => 'Mrs',
+                    'Miss' => 'Miss',
+                    'Ms' => 'Ms',
+                    'Dr' => 'Dr',
+                    'Prof' => 'Prof',
+                    'Rev' => 'Rev',
+                )
+            )
         );
-        $label->addChild(
-            self::getTitleSelect()
-        );
-        $fs->addChild($label);
         
         // Add initials
-        $label = self::_getNewLabelAndTextField('Initial');
-        $fs->addChild($label);
+        $fs->addChild(self::getNewLabelAndTextField('Initial'));
         
         // Add surname
-        $label = self::_getNewLabelAndTextField('Surname', 'ValidString', true);
-        $fs->addChild($label);
+        $fs->addChild(self::getNewLabelAndTextField('Surname', 'ValidString', true));
         
         // Add email
-        $label = self::_getNewLabelAndTextField('Email', 'ValidEmail');
-        $fs->addChild($label);
+        $fs->addChild(self::getNewLabelAndTextField('Email', 'ValidEmail'));
         
         // Add telephone
-        $label = self::_getNewLabelAndTextField('Telephone', 'ValidString', true);
-        $fs->addChild($label);
+        $fs->addChild(self::getNewLabelAndTextField('Telephone', 'ValidString', true));
         
         // Add mobile telephone
-        $label = self::_getNewLabelAndTextField('Mobile');
-        $fs->addChild($label);
+        $fs->addChild(self::getNewLabelAndTextField('Mobile'));
         
         // Add fieldset to form
         $form->addChild($fs);
@@ -99,41 +100,16 @@ class ContactForm extends \aw\formfields\forms\Form
     }
     
     /**
-     * Return a select field with all the normal titles
-     * 
-     * @return \aw\formfields\fields\Select
-     */
-    public static function getTitleSelect()
-    {
-        return \aw\formfields\fields\SelectInput::factory(
-            'title', 
-            array(
-                'Mr' => 'Mr',
-                'Mrs' => 'Mrs',
-                'Miss' => 'Miss',
-                'Ms' => 'Ms',
-                'Dr' => 'Dr',
-                'Prof' => 'Prof',
-                'Rev' => 'Rev',
-            ),
-            array(
-                'id' => 'title'
-            )
-        );
-    }
-    
-    /**
      * Create a new label and child texst field
      * 
-     * @param \aw\formfields\fields\Label $label          Label name
-     * @param string                      $validationRule Name of the validation
-     * rule thats required to validate the field
-     * @param boolean                     $required       Set to true if the 
-     * rule is required or not
+     * @param string  $label          Label name
+     * @param string  $validationRule Name of the validation rule thats required
+     * to validate the field
+     * @param boolean $required       Set to true if the rule is required or not
      * 
      * @return \aw\formfields\fields\Label
      */
-    private static function _getNewLabelAndTextField(
+    public static function getNewLabelAndTextField(
         $label,  
         $validationRule = null,
         $required = false
@@ -159,5 +135,49 @@ class ContactForm extends \aw\formfields\forms\Form
         }
 
         return $label->addChild($tf);
+    }
+    
+    /**
+     * Create a new label and select element pair
+     * 
+     * @param string  $label          Label text
+     * @param array   $values         Key/value pair array
+     * @param string  $validationRule Name of the validation rule thats required
+     * to validate the field
+     * @param boolean $required       Set to true if the rule is required or not
+     * 
+     * @return \aw\formfields\fields\Label
+     */
+    public static function getNewLabelAndSelect(
+        $label, 
+        $values,  
+        $validationRule = null,
+        $required = false
+    ) {
+        $name = self::slugify($label);
+        
+        // Start creating/adding fields and adding them to the fieldset
+        $label = new \aw\formfields\fields\Label(
+            $label, 
+            array('for' => $name)
+        );
+        $label->addChild(
+            \aw\formfields\fields\SelectInput::factory(
+                $name, 
+                $values,
+                array(
+                    'id' => $name
+                )
+            )
+        );
+
+        // Add validation rule if required
+        if ($validationRule) {
+            $label->getElementBy('getType', 'select')
+                ->setRule($validationRule)
+                ->getRule()
+                ->setRequired($required);
+        }
+        return $label;
     }
 }
