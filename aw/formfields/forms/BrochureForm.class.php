@@ -36,13 +36,15 @@ class BrochureForm extends \aw\formfields\forms\Form
      * @param array $attributes Form attributes
      * @param array $formValues Form Values
      * @param array $countries  Countries in alpha2 => Name format
+     * @param array $countries  Array of sources in Code => Name format
      * 
      * @return void
      */
     public static function factory(
         $attributes = array(),
         $formValues = array(),
-        $countries = array()
+        $countries = array(),
+        $sources = array()
     ) {
         // New form object
         $form = new \aw\formfields\forms\Form($attributes, $formValues);
@@ -73,6 +75,38 @@ class BrochureForm extends \aw\formfields\forms\Form
             new \aw\formfields\fields\Checkbox('emailoptin')
         );
         $fs->addChild($label);
+        
+        if (count($sources) > 0) {
+            $fs->addChild(
+                \aw\formfields\forms\ContactForm::getNewLabelAndSelect(
+                    'Where did you here about us?', 
+                    $sources,
+                    'ValidString',
+                    true
+                )->getElementBy('getType', 'select')
+                    ->setName('source')
+                    ->getParent()
+            );
+        } else {
+            $fs->addChild(
+                new \aw\formfields\fields\HiddenInput(
+                    'source',
+                    array(
+                        'value' => 'OTH'
+                    )
+                )
+            );
+            $fs->addChild(
+                \aw\formfields\forms\ContactForm::getNewLabelAndTextField(
+                    'Where did you here about us?',
+                    'ValidString',
+                    true
+                )->getElementBy('getType', 'text')
+                    ->setName('other')
+                    ->getParent() // Need to return the parent as the getElementBy
+                                  // accessor returns the text field not the label
+            );
+        }
         
         // Add optional details form
         $form->addChild($fs);
