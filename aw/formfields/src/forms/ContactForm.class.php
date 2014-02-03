@@ -65,7 +65,9 @@ class ContactForm extends \aw\formfields\forms\Form
                     'Dr' => 'Dr',
                     'Prof' => 'Prof',
                     'Rev' => 'Rev',
-                )
+                ),
+                'ValidString',
+                true
             )
         );
         
