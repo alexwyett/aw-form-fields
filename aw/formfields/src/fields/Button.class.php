@@ -32,8 +32,7 @@ class Button extends \aw\formfields\fields\ValueElement
     /**
      * Constructor
      * 
-     * @param string $name       Field name
-     * @param array  $attributes Field attributes
+     * @param array $attributes Field attributes
      * 
      * @return void
      */
