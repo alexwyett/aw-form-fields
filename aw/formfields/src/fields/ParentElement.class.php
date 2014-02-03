@@ -126,8 +126,8 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     /**
      * Return a child object or objects from the parent
      * 
-     * @param string  $accessor Accessor method to call
-     * @param string  $value    Comparison value
+     * @param string $accessor Accessor method to call
+     * @param string $value    Comparison value
      * 
      * @return array
      */
