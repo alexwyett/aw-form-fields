@@ -122,6 +122,12 @@ class FormTest extends PHPUnit_Framework_TestCase
             $result, 
             count($brochureForm->validate()->getErrors())
         );
+        
+        $this->assertFalse(
+            $brochureForm->isValid()
+        );
+        
+        
     }
     
     /**
@@ -134,7 +140,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 array(),
-                8
+                9
             ),
             array(
                 array(
@@ -144,14 +150,14 @@ class FormTest extends PHPUnit_Framework_TestCase
                     'postcode' => 'OFN0WRE',
                     'emailoptin' => 'on'
                 ),
-                4
+                5
             ),
             array(
                 array(
                     'email' => 'invalid email address',
                     'town' => 'Somehwere'
                 ),
-                7
+                8
             )
         );
     }

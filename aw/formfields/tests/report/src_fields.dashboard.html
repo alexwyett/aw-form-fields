@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /var/www/aw-form-fields/aw/formfields</title>
+  <title>Dashboard for /var/www/aw-form-fields/aw/formfields/src/fields</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -18,7 +18,9 @@
     <div class="row">
      <div class="span12">
       <ul class="breadcrumb">
-        <li><a href="index.html">/var/www/aw-form-fields/aw/formfields</a></li>
+        <li><a href="index.html">/var/www/aw-form-fields/aw/formfields</a> <span class="divider">/</span></li>
+        <li><a href="src.html">src</a> <span class="divider">/</span></li>
+        <li><a href="src_fields.html">fields</a></li>
         <li class="active">(Dashboard)</li>
 
       </ul>
@@ -77,7 +79,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,23], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,14], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -129,7 +131,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,6,"<a href=\"src_fields_Checkbox.class.php.html#30\">Checkbox<\/a>"],[100,37,"<a href=\"src_fields_Element.class.php.html#30\">Element<\/a>"],[100,2,"<a href=\"src_fields_Fieldset.class.php.html#30\">Fieldset<\/a>"],[100,0,"<a href=\"src_fields_HiddenInput.class.php.html#31\">HiddenInput<\/a>"],[100,3,"<a href=\"src_fields_ImageButton.class.php.html#30\">ImageButton<\/a>"],[100,3,"<a href=\"src_fields_Label.class.php.html#31\">Label<\/a>"],[100,3,"<a href=\"src_fields_Legend.class.php.html#31\">Legend<\/a>"],[100,6,"<a href=\"src_fields_Option.class.php.html#31\">Option<\/a>"],[100,27,"<a href=\"src_fields_ParentElement.class.php.html#30\">ParentElement<\/a>"],[100,15,"<a href=\"src_fields_SelectInput.class.php.html#31\">SelectInput<\/a>"],[100,1,"<a href=\"src_fields_SubmitButton.class.php.html#30\">SubmitButton<\/a>"],[100,1,"<a href=\"src_fields_TextInput.class.php.html#31\">TextInput<\/a>"],[100,5,"<a href=\"src_fields_Textarea.class.php.html#31\">Textarea<\/a>"],[100,3,"<a href=\"src_fields_ValueElement.class.php.html#30\">ValueElement<\/a>"],[100,5,"<a href=\"src_forms_AddressForm.class.php.html#31\">AddressForm<\/a>"],[100,2,"<a href=\"src_forms_BrochureForm.class.php.html#31\">BrochureForm<\/a>"],[100,5,"<a href=\"src_forms_ContactForm.class.php.html#31\">ContactForm<\/a>"],[100,28,"<a href=\"src_forms_Form.class.php.html#31\">Form<\/a>"],[100,12,"<a href=\"src_validation_Valid.class.php.html#30\">Valid<\/a>"],[100,4,"<a href=\"src_validation_ValidCheckedState.class.php.html#30\">ValidCheckedState<\/a>"],[100,2,"<a href=\"src_validation_ValidEmail.class.php.html#30\">ValidEmail<\/a>"],[100,4,"<a href=\"src_validation_ValidString.class.php.html#30\">ValidString<\/a>"],[100,1,"<a href=\"src_validation_ValidationException.class.php.html#30\">ValidationException<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,6,"<a href=\"src_fields_Checkbox.class.php.html#30\">Checkbox<\/a>"],[100,37,"<a href=\"src_fields_Element.class.php.html#30\">Element<\/a>"],[100,2,"<a href=\"src_fields_Fieldset.class.php.html#30\">Fieldset<\/a>"],[100,0,"<a href=\"src_fields_HiddenInput.class.php.html#31\">HiddenInput<\/a>"],[100,3,"<a href=\"src_fields_ImageButton.class.php.html#30\">ImageButton<\/a>"],[100,3,"<a href=\"src_fields_Label.class.php.html#31\">Label<\/a>"],[100,3,"<a href=\"src_fields_Legend.class.php.html#31\">Legend<\/a>"],[100,6,"<a href=\"src_fields_Option.class.php.html#31\">Option<\/a>"],[100,27,"<a href=\"src_fields_ParentElement.class.php.html#30\">ParentElement<\/a>"],[100,15,"<a href=\"src_fields_SelectInput.class.php.html#31\">SelectInput<\/a>"],[100,1,"<a href=\"src_fields_SubmitButton.class.php.html#30\">SubmitButton<\/a>"],[100,1,"<a href=\"src_fields_TextInput.class.php.html#31\">TextInput<\/a>"],[100,5,"<a href=\"src_fields_Textarea.class.php.html#31\">Textarea<\/a>"],[100,3,"<a href=\"src_fields_ValueElement.class.php.html#30\">ValueElement<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
