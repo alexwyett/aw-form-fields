@@ -26,10 +26,12 @@ spl_autoload_register(function($class) {
     
     // Does the class use this namespace?
     $len = strlen($prefix);
+    // @codeCoverageIgnoreStart
     if (strncmp($prefix, $class, $len) !== 0) {
         // no
         return;
     }
+    // @codeCoverageIgnoreEnd
     
     // Relative class
     $relative_class = substr($class, $len);
