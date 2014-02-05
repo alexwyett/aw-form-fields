@@ -328,6 +328,22 @@ abstract class Element
     }
     
     /**
+     * Retrieve a single attribute
+     *
+     * @param string $attributeName Attribute name you wish to search for
+     * 
+     * @return mixed
+     */
+    public function getAttribute($attributeName)
+    {
+        if (array_key_exists($attributeName, $this->getAttributes())) {
+            return $this->attributes[$attributeName];
+        }
+
+        throw new \RuntimeException('Attribute does not exist');
+    }
+    
+    /**
      * Retrieve attributes
      * 
      * @return void
@@ -415,9 +431,29 @@ abstract class Element
         }
         return $type;
     }
+
+    /**
+     * Get magic method for creating attribute accessor methods on the fly
+     * 
+     * @param string $method Method Name
+     * @param array  $args   Method args
+    * 
+     * @throws \RuntimeException
+     * 
+     * @return \aw\formfields\fields\Element 
+     */
+    public function __call($method, $args)
+    {
+        if (substr($method, 0, 3) == 'get') {
+            $attributeName = substr(strtolower($method), 3);
+            return $this->getAttribute($attributeName);
+        }
+
+        throw new \RuntimeException('Method ' . $method . ' not found');
+    }
     
     // ------------------------ Validation functions ------------------------ //
-      
+
     /**
      * Return true if validation can applied to this element
      * 
