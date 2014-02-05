@@ -125,6 +125,28 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test a select field with no children
+     * 
+     * @return void
+     */
+    public function testOptgroupSelect()
+    {
+        $select = new \aw\formfields\fields\SelectInput('selectfield3');
+
+        // Create a new option
+        $op = new \aw\formfields\fields\Option('Select', '');
+        $op1 = new \aw\formfields\fields\Option('1', '1');
+        $op2 = new \aw\formfields\fields\Option('2', '2');
+        $optg = new \aw\formfields\fields\Optgroup('Options');
+        $select->addChild($optg->addChildren(array($op, $op1, $op2)));
+
+        $this->assertEquals(
+            '<select name="selectfield3"><optgroup label="Options"><option value="">Select</option><option value="1">1</option><option value="2">2</option></optgroup></select>', 
+            $select->render()
+        );
+    }
+
+    /**
      * Test that an exception is thrown on validation failure
      * 
      * @expectedException \aw\formfields\validation\ValidationException

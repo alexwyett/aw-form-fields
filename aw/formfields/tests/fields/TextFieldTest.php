@@ -120,6 +120,18 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that an exception is thrown when a non existent method is called
+     * 
+     * @expectedException \RuntimeException
+     * 
+     * @return void
+     */
+    public function testNonExistentMethod()
+    {
+        $this->textField->foo();
+    }
+
+    /**
      * Test that an exception is thrown on validation failure
      * 
      * @expectedException \aw\formfields\validation\ValidationException

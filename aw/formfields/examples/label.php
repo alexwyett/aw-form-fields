@@ -42,3 +42,5 @@ $lbl->addChild(
 
 // Output label
 echo $lbl;
+
+echo $lbl->getFor();

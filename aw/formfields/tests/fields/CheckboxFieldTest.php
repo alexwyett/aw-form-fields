@@ -95,6 +95,43 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
     }
     
     /**
+     * Label & element testing
+     * 
+     * @return void
+     */
+    public function testCheckboxWithLabelAndAttribute()
+    {
+        $cb = $this->_getNewCheckbox();
+        $label = new aw\formfields\fields\Label(
+            'Checkbox label',
+            array(
+                'for' => 'myfunkycheckbox'
+            )
+        );
+        $label->addChild($cb);
+
+        // Get the __call magic method
+        $this->assertEquals('myfunkycheckbox', $label->getFor());
+        $this->assertEquals(
+            '<label for="myfunkycheckbox">Checkbox label<input type="checkbox" name="myfunkycheckbox"></label>',
+            $label->render()
+        );
+    }
+    
+    /**
+     * Label & element testing
+     *
+     * @expectedException \RuntimeException
+     * 
+     * @return void
+     */
+    public function testCallMagicMethodException()
+    {
+        $cb = $this->_getNewCheckbox();
+        $cb->getNonExistentAttribute();
+    }
+    
+    /**
      * Test checkbox object with a validation rule
      * 
      * @expectedException \aw\formfields\validation\ValidationException
@@ -104,8 +141,8 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
     public function testNewCheckboxWithRuleThrowsException()
     {
         $this->_getNewCheckbox()
-                ->setRule('ValidCheckedState')
-                ->getRule()->validateChecked();
+            ->setRule('ValidCheckedState')
+            ->getRule()->validateChecked();
     }
 
     /**
