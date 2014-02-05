@@ -1,0 +1,15 @@
+{
+    "name": "aw/formfields",
+    "type": "library",
+    "description": "Form creation for PHP 5.3",
+    "keywords": ["forms", "html"],
+    "homepage": "http://github.com/alexwyett/aw-form-fields",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "formfields": "src"
+        }
+    }
+}
