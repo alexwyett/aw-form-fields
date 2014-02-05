@@ -28,7 +28,7 @@ namespace aw\formfields\forms;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class BrochureForm extends \aw\formfields\forms\Form
+class BrochureForm extends \aw\formfields\forms\StaticForm
 {
     /**
      * Constructor
@@ -66,15 +66,15 @@ class BrochureForm extends \aw\formfields\forms\Form
             )
         );
         
-        // Start creating/adding fields and adding them to the fieldset
-        $label = new \aw\formfields\fields\Label(
-            'Please tick here if you like to here about our special offers', 
-            array('for' => 'emailoptin')
+        $fs->addChild(
+            self::getNewLabelAndCheckboxField(
+                'Please tick here if you like to here about our special offers'
+            )->setAttribute('for', 'emailoptin')
+                ->getElementBy('getType', 'checkbox')
+                ->setName('emailoptin')
+                ->setid('emailoptin')
+                ->getParent()
         );
-        $label->addChild(
-            new \aw\formfields\fields\Checkbox('emailoptin')
-        );
-        $fs->addChild($label);
         
         if (count($sources) > 0) {
             $fs->addChild(

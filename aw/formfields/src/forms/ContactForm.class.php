@@ -28,7 +28,7 @@ namespace aw\formfields\forms;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class ContactForm extends \aw\formfields\forms\Form
+class ContactForm extends \aw\formfields\forms\StaticForm
 {
     /**
      * Constructor
@@ -99,87 +99,5 @@ class ContactForm extends \aw\formfields\forms\Form
         );
         
         return $form->mapValues();
-    }
-    
-    /**
-     * Create a new label and child texst field
-     * 
-     * @param string  $label          Label name
-     * @param string  $validationRule Name of the validation rule thats required
-     * to validate the field
-     * @param boolean $required       Set to true if the rule is required or not
-     * 
-     * @return \aw\formfields\fields\Label
-     */
-    public static function getNewLabelAndTextField(
-        $label,  
-        $validationRule = null,
-        $required = false
-    ) {
-        $name = self::slugify($label, '_');
-        $label = new \aw\formfields\fields\Label(
-            $label, 
-            array('for' => $name)
-        );
-
-        $tf = new \aw\formfields\fields\TextInput(
-            $name, 
-            array(
-                'id' => $name
-            )
-        );
-
-        // Add validation rule if required
-        if ($validationRule) {
-            $tf->setRule($validationRule)
-                ->getRule()
-                ->setRequired($required);
-        }
-
-        return $label->addChild($tf);
-    }
-    
-    /**
-     * Create a new label and select element pair
-     * 
-     * @param string  $label          Label text
-     * @param array   $values         Key/value pair array
-     * @param string  $validationRule Name of the validation rule thats required
-     * to validate the field
-     * @param boolean $required       Set to true if the rule is required or not
-     * 
-     * @return \aw\formfields\fields\Label
-     */
-    public static function getNewLabelAndSelect(
-        $label, 
-        $values,  
-        $validationRule = null,
-        $required = false
-    ) {
-        $name = self::slugify($label);
-        
-        // Start creating/adding fields and adding them to the fieldset
-        $label = new \aw\formfields\fields\Label(
-            $label, 
-            array('for' => $name)
-        );
-        $label->addChild(
-            \aw\formfields\fields\SelectInput::factory(
-                $name, 
-                $values,
-                array(
-                    'id' => $name
-                )
-            )
-        );
-
-        // Add validation rule if required
-        if ($validationRule) {
-            $label->getElementBy('getType', 'select')
-                ->setRule($validationRule)
-                ->getRule()
-                ->setRequired($required);
-        }
-        return $label;
     }
 }

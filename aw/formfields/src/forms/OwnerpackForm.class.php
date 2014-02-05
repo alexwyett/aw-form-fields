@@ -28,7 +28,7 @@ namespace aw\formfields\forms;
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
  * @link      http://www.github.com/alexwyett
  */
-class OwnerpackForm extends \aw\formfields\forms\Form
+class OwnerpackForm extends \aw\formfields\forms\StaticForm
 {
     /**
      * Constructor
@@ -68,7 +68,7 @@ class OwnerpackForm extends \aw\formfields\forms\Form
         
         // Start creating/adding fields and adding them to the fieldset
         $fs->addChild(
-            \aw\formfields\forms\ContactForm::getNewLabelAndTextField(
+            self::getNewLabelAndTextField(
                 'Where is your property located?',
                 'ValidString',
                 true
@@ -78,7 +78,7 @@ class OwnerpackForm extends \aw\formfields\forms\Form
         );
 
         $fs->addChild(
-            \aw\formfields\forms\ContactForm::getNewLabelAndSelect(
+            self::getNewLabelAndSelect(
                 'Are you currently letting?', 
                 array(
                     'Select' => '',
