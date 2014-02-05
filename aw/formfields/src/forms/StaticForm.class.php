@@ -144,7 +144,7 @@ class StaticForm extends \aw\formfields\forms\Form
             array('for' => $name)
         );
         
-        $field = sprintf('\aw\formfields\fields\%s', $type);
+        $field = sprintf('aw\formfields\fields\%s', $type);
 
         $tf = new $field(
             $name, 
