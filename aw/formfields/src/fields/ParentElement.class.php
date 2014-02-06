@@ -84,6 +84,32 @@ abstract class ParentElement extends \aw\formfields\fields\Element
             }
         }
     }
+    
+    /**
+     * Swap an array index with another
+     * 
+     * @param integer $i
+     * @param integer $j
+     * 
+     * @return \aw\formfields\fields\ParentElement
+     */
+    public function swap($i, $j)
+    {
+        $a = $this->getChildren();
+        $tmp = $a[$i];
+        if ($i > $j) {
+            for ($k = $i; $k > $j; $k--) {
+                $a[$k] = $a[$k - 1];
+            }
+        } else {
+            for ($k = $i; $k < $j; $k++) {
+                $a[$k] = $a[$k + 1];
+            }
+        }
+        $a[$j] = $tmp;
+        $this->children = $a;
+        return $this;
+    }
 
     /**
      * Render object children
