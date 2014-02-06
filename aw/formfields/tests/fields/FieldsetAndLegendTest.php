@@ -72,4 +72,55 @@ class FieldsetAndLegendTest extends PHPUnit_Framework_TestCase
         );
 
     }
+    
+    /**
+     * Test positioning of child elements using moveUp or moveDown
+     * 
+     * @return void
+     */
+    public function testObjectPositioning()
+    {
+        $fs = \aw\formfields\fields\Fieldset::factory(
+            'Test Fieldset', 
+            array(), 
+            array(
+                new \aw\formfields\fields\TextInput('mytextfield'), 
+                new \aw\formfields\fields\TextInput('mytextfield2'),
+                new \aw\formfields\fields\TextInput('mytextfield3'),
+                new \aw\formfields\fields\TextInput('mytextfield4'),
+                new \aw\formfields\fields\TextInput('mytextfield5')
+            )
+        );
+        
+        
+        // Test the index of the fieldset
+        $this->assertEquals(
+            0,
+            $fs->getIndex()
+        );
+        
+        
+        $this->assertEquals(
+            $fs->getElementBy('getIndex', 3)->getName(),
+            'mytextfield3'
+        );
+        
+        // Move on up
+        $fs->getElementBy('getIndex', 3)->moveUp();
+        
+        // Test the index is ok
+        $this->assertEquals(
+            $fs->getElementBy('getIndex', 2)->getName(),
+            'mytextfield3'
+        );
+        
+        // Move down twice
+        $fs->getElementBy('getIndex', 2)->moveDown()->moveDown();
+        
+        // Test the index is ok
+        $this->assertEquals(
+            $fs->getElementBy('getIndex', 4)->getName(),
+            'mytextfield3'
+        );
+    }
 }
