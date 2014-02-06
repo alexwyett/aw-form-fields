@@ -119,6 +119,36 @@ abstract class Element
     {
         return $this->setTemplate($this->getTemplate() . $template);
     }
+    
+    /**
+     * Move an item up the parent child index
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function moveUp()
+    {
+        $index = $this->getIndex();
+        if ($index > 0 && $this->getParent()) {
+            $this->getParent()->swap($index, $index - 1);
+        }
+        return $this;
+    }
+    
+    /**
+     * Move an item down the parent child index
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function moveDown()
+    {
+        $index = $this->getIndex();
+        if ($this->getParent() 
+            && $index < count($this->getParent()->getChildren())
+        ) {
+            $this->getParent()->swap($index, $index + 1);
+        }
+        return $this;
+    }
         
     /**
      * Remove a field attribute
@@ -372,6 +402,24 @@ abstract class Element
     {
         return $this->id;
     }
+    
+    /**
+     * Return the index of the element
+     * 
+     * @return integer
+     */
+    public function getIndex()
+    {
+        $index = 0;
+        if ($this->getParent()) {
+            foreach ($this->getParent()->getChildren() as $aIndex => $child) {
+                if ($child === $this) {
+                    $index = $aIndex;
+                }
+            }
+        }
+        return $index;
+    }
 
     /**
      * Return the name of the element
@@ -386,7 +434,7 @@ abstract class Element
     /**
      * Return a parent object
      * 
-     * @return \aw\formfields\fields\Element
+     * @return \aw\formfields\fields\ParentElement
      */
     public function getParent()
     {
