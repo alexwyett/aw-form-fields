@@ -40,7 +40,7 @@ $form->each('getType', 'label', function($label) {
 });
 
 // Set the value of the country field to default to UK
-$form->getElementBy('getName', 'country', 0)->setValue('GB');
+$form->getElementBy('getName', 'country')->setValue('GB');
 
 if (count($_GET)) {
     echo $form->validate();
