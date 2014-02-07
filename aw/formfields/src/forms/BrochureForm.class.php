@@ -56,7 +56,9 @@ class BrochureForm extends \aw\formfields\forms\StaticForm
         $form->addChild($addressform->getElementBy('getType', 'fieldset'));
 
         // Set the value of the country field to default to UK
-        $form->getElementBy('getName', 'country')->setValue('GB');
+        if (count($countries) > 0) {
+            $form->getElementBy('getName', 'country')->setValue('GB');
+        }
         
         // Fieldset
         $fs = \aw\formfields\fields\Fieldset::factory(
