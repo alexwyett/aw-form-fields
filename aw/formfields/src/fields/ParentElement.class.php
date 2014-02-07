@@ -110,6 +110,19 @@ abstract class ParentElement extends \aw\formfields\fields\Element
         $this->children = $a;
         return $this;
     }
+    
+    /**
+     * Remove a child specified
+     * 
+     * @param integer $index Index of the child required to move
+     * 
+     * @return \aw\formfields\fields\ParentElement
+     */
+    public function removeChild($index)
+    {
+        unset($this->children[$index]);
+        return $this;
+    }
 
     /**
      * Render object children
@@ -142,7 +155,7 @@ abstract class ParentElement extends \aw\formfields\fields\Element
      * 
      * @param integer $index Index of child
      * 
-     * @return mixed
+     * @return \aw\formfields\fields\Element
      */
     public function getChild($index)
     {
