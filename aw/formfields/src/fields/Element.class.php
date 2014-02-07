@@ -193,7 +193,22 @@ abstract class Element
             $attrs .= $this->_renderAttribute($key, $val);
         }
         return $attrs;
-    }  
+    }
+    
+    /**
+     * Remove the child from its parent
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    public function remove()
+    {
+        $parent = $this->getParent();
+        if ($parent) {
+            $parent->removeChild($this->getIndex());
+            $this->_removeParent();
+        }
+        return $this;
+    }
    
     /**
      * Function used to overwrite a string with the output of any 
@@ -543,5 +558,16 @@ abstract class Element
             $key,
             $val
         );
+    }
+    
+    /**
+     * Remove the objects parent association
+     * 
+     * @return \aw\formfields\fields\Element
+     */
+    private function _removeParent()
+    {
+        $this->parent = null;
+        return $this;
     }
 }
