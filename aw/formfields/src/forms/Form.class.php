@@ -43,6 +43,13 @@ class Form extends \aw\formfields\fields\ParentElement
      * @var array
      */
     protected $errors = array();
+    
+    /**
+     * Callback function
+     * 
+     * @var function
+     */
+    protected $callback = null;
 
     /**
      * Constructor
@@ -90,10 +97,17 @@ class Form extends \aw\formfields\fields\ParentElement
                         $ele->getRule()->validate();
                     } catch (\aw\formfields\validation\ValidationException $e) {
                         $form->setError($ele->getName(), $e->getMessage());
-                        $ele->addClass('required')
+                        if (is_callable($this->callback)) {
+                            call_user_func_array(
+                                $this->callback, 
+                                array($form, $ele, $e)
+                            );
+                        } else {
+                            $ele->addClass('required')
                             ->setTemplate(
                                 $ele->getTemplate() . ' ' . $e->getMessage()
                             );
+                        }
                     }
                 }
                 return;
@@ -183,6 +197,23 @@ class Form extends \aw\formfields\fields\ParentElement
     public function setError($element, $error)
     {
         $this->errors[$element] = $error;
+        return $this;
+    }
+    
+    /**
+     * Set the validation callback.  The function has three arguments, $form
+     * $ele and $e which are the form object, element object and exception
+     * object respectively.  I.e: 
+     * 
+     * $this->setCallback(function($form, $ele, $e) { // do stuff });
+     * 
+     * @param function $func Function to use as the validation call back
+     * 
+     * @return \aw\formfields\forms\Form
+     */
+    public function setCallback($func)
+    {
+        $this->callback = $func;
         return $this;
     }
     
