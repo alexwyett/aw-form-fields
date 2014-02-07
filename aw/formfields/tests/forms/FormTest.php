@@ -99,6 +99,44 @@ class FormTest extends PHPUnit_Framework_TestCase
     }
     
     /**
+     * Test the form callback function
+     * 
+     * @return void
+     */
+    public function testValidationCallback()
+    {
+        $brochureForm = \aw\formfields\forms\BrochureForm::factory(
+            array(), 
+            array(), 
+            array(
+                'Select' => '',
+                'United Kingdom' => 'GB'
+            )
+        );
+        
+        $errors = '';
+        $brochureForm->mapValues()->setCallback(
+            function($form, $ele, $e) use (&$errors) {
+                $errors .= $ele->getName() . ' - ' . $e->getMessage() . '<br>';
+            }
+        )->validate();
+        
+        $this->assertEquals(
+            'title - Required<br>surname - Required<br>email - Invalid email address<br>telephone - Required<br>addr1 - Required<br>town - Required<br>county - Required<br>postcode - Required<br>other - Required<br>',
+            $errors
+        );
+        
+        $this->assertEquals(
+            'Error!',
+            $brochureForm->mapValues()->setCallback(
+                function($form, $ele, $e) {
+                    $form->setTemplate('Error!');
+                }
+            )->validate()->render()
+        );
+    }
+    
+    /**
      * Validation method
      * 
      * @param array   $fields Form field values
