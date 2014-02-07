@@ -52,3 +52,6 @@ $sf2 = \aw\formfields\fields\SelectInput::factory(
 
 // Output field
 echo $sf2;
+
+// Try removing an option
+echo $sf2->getChild(1)->remove();
