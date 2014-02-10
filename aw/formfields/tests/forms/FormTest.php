@@ -41,6 +41,33 @@ class FormTest extends PHPUnit_Framework_TestCase
         
         // Test render
         $this->assertEquals('<form></form>', $form->render());
+        
+        // Test static methods and add to form
+        $form->addChildren(
+            array(
+                \aw\formfields\forms\StaticForm::getNewLabelAndTextArea(
+                    'Textarea'
+                ),
+                \aw\formfields\forms\StaticForm::getNewLabelAndTextField(
+                    'TextInput'
+                ),
+                \aw\formfields\forms\StaticForm::getNewLabelAndCheckboxField(
+                    'Checkbox'
+                ),
+            )
+        );
+        
+        // Test textarea
+        $this->assertEquals(
+            'Textarea', 
+            $form->getElementBy('getType', 'label', 0)->getLabel()
+        );
+        
+        // Test textarea
+        $this->assertEquals(
+            'textarea', 
+            $form->getElementBy('getType', 'textarea')->getType()
+        );
     }
     
     /**
