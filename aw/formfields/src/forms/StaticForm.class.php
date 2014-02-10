@@ -77,6 +77,29 @@ class StaticForm extends \aw\formfields\forms\Form
     }
     
     /**
+     * Create a new label and child textarea field
+     * 
+     * @param string  $label          Label name
+     * @param string  $validationRule Name of the validation rule thats required
+     * to validate the field
+     * @param boolean $required       Set to true if the rule is required or not
+     * 
+     * @return \aw\formfields\fields\Label
+     */
+    public static function getNewLabelAndTextArea(
+        $label,  
+        $validationRule = null,
+        $required = false
+    ) {
+        return self::_getNewLabelAndField(
+            'Textarea', 
+            $label, 
+            $validationRule, 
+            $required
+        );
+    }
+    
+    /**
      * Create a new label and select element pair
      * 
      * @param string  $label          Label text
