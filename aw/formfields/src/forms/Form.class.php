@@ -97,9 +97,9 @@ class Form extends \aw\formfields\fields\ParentElement
                         $ele->getRule()->validate();
                     } catch (\aw\formfields\validation\ValidationException $e) {
                         $form->setError($ele->getName(), $e->getMessage());
-                        if (is_callable($this->callback)) {
+                        if (is_callable($form->getCallback())) {
                             call_user_func_array(
-                                $this->callback, 
+                                $form->getCallback(), 
                                 array($form, $ele, $e)
                             );
                         } else {
@@ -158,6 +158,16 @@ class Form extends \aw\formfields\fields\ParentElement
     public function getFormValues()
     {
         return $this->formValues;
+    }
+    
+    /**
+     * Return the callback
+     *
+     * @return function
+     */
+    public function getCallback()
+    {
+        return $this->callback;
     }
     
     /**
