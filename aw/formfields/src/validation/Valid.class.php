@@ -130,13 +130,19 @@ class Valid
      */
     public function validate()
     {
-        foreach (get_class_methods($this) as $method) {
-            if (substr($method, 0, 8) ==  'validate'
-                && $method != 'validate'
-            ) {
-                // Method will throw an exception on failure
-                $this->$method();
-            }
+        $methods = array_reverse(
+            array_filter(
+                get_class_methods($this->getType()), 
+                function($method) {
+                    return (substr($method, 0, 8) ==  'validate'
+                        && $method != 'validate'
+                    );
+                }
+            )
+        );
+        foreach ($methods as $method) {
+            // Method will throw an exception on failure
+            $this->$method();
         }
         
         return true;
