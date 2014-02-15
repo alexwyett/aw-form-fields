@@ -36,13 +36,11 @@ class ValidString extends \aw\formfields\validation\Valid
      */
     public function validateString()
     {
-        if ($this->validateNull() && is_string($this->getValue())) {
-            if (strlen($this->getValue()) == 0) {
-                throw new \aw\formfields\validation\ValidationException(
-                    'Required',
-                    1001
-                );
-            }
+        if (!is_string($this->getValue()) || strlen($this->getValue()) == 0) {
+            throw new \aw\formfields\validation\ValidationException(
+                'Required',
+                1001
+            );
         }
         
         return true;
