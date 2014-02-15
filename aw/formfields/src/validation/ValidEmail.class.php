@@ -28,9 +28,7 @@ namespace aw\formfields\validation;
  * @link      http://www.github.com/alexwyett
  */
 class ValidEmail extends \aw\formfields\validation\ValidString
-{    
-    // ------------------------ Validation functions ------------------------ //
-
+{   
     /**
      * Email Validation function
      * 
