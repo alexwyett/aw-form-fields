@@ -66,7 +66,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
         );
 
         // Add simple validation
-        $this->selectField->setRule('ValidString');
+        $this->selectField->setRule('ValidNumber');
     }
 
     /**
@@ -93,7 +93,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
 
         // Test validation
         $this->assertTrue($this->selectField->getRule()->validateNull());
-        $this->assertTrue($this->selectField->getRule()->validateString());
+        $this->assertTrue($this->selectField->getRule()->validateNumber());
         $this->assertTrue($this->selectField->getRule()->validate());
         
         // Test parent function
@@ -166,9 +166,55 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
      * 
      * @return void
      */
-    public function testSelectFieldValidationStringException()
+    public function testSelectFieldValidationNumberException()
     {
         // Set value to be empty string
-        $this->selectField->setValue('')->getRule()->validateString();
+        $this->selectField->setValue('')->getRule()->validateNumber();
+    }
+
+    /**
+     * Test that an exception is thrown on string validation failure
+     * 
+     * @dataProvider selectValidationProvider
+     * 
+     * @return void
+     */
+    public function testSelectFieldValidationNumberExceptionCode(
+        $value,
+        $code,
+        $message,
+        $toString
+    ) {
+        try {
+            // Set value to be empty string
+            $this->selectField->setValue($value)->getRule()->validate();
+        } catch (\aw\formfields\validation\ValidationException $ex) {
+            $this->assertEquals($code, $ex->getCode());
+            $this->assertEquals($message, $ex->getMessage());
+            $this->assertEquals($toString, (string) $ex);
+        }
+    }
+    
+    /**
+     * Return select validation provision
+     * 
+     * @return array
+     */
+    public function selectValidationProvider()
+    {
+        return array(
+            array(
+                '',
+                1004,
+                'Not a number',
+                'aw\formfields\validation\ValidationException: [1004]: Not a number'
+            ),
+            array(
+                null,
+                1000,
+                'Required',
+                'aw\formfields\validation\ValidationException: [1000]: Required'
+            )
+        );
     }
 }
