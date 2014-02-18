@@ -149,7 +149,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         )->validate();
         
         $this->assertEquals(
-            'title - Required<br>surname - Required<br>email - Invalid email address<br>telephone - Required<br>addr1 - Required<br>town - Required<br>county - Required<br>postcode - Required<br>other - Required<br>',
+            'title - Required<br>surname - Required<br>email - Required<br>telephone - Required<br>addr1 - Required<br>town - Required<br>county - Required<br>postcode - Required<br>other - Required<br>',
             $errors
         );
         

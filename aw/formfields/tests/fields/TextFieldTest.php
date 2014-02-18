@@ -212,7 +212,7 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     public function testEmailValidationExceptionCode()
     {
         try {
-            $this->textField->setRule('ValidEmail')->setValue('')->getRule()->validate();
+            $this->textField->setRule('ValidEmail')->setValue('invalidemailaddress')->getRule()->validate();
         } catch(\aw\formfields\validation\ValidationException $e) {
             $this->assertEquals('aw\formfields\validation\ValidationException: [1002]: Invalid email address', (string) $e);
         }
