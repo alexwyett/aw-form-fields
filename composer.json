@@ -10,7 +10,7 @@
     "license": "proprietary",
     "autoload": {
         "psr-0": {
-            "aw\\formfields": "src/"
+            "aw\\formfields\\": "src/"
         }
     },
     "minimum-stability": "dev"
