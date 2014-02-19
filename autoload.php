@@ -26,6 +26,7 @@ spl_autoload_register(function($class) {
     
     // Does the class use this namespace?
     $len = strlen($prefix);
+    
     // @codeCoverageIgnoreStart
     if (strncmp($prefix, $class, $len) !== 0) {
         // no
@@ -33,13 +34,10 @@ spl_autoload_register(function($class) {
     }
     // @codeCoverageIgnoreEnd
     
-    // Relative class
-    $relative_class = substr($class, $len);
-    
     // Replace namespace prefix with the base directory, replace namepace
     // separators with directory separators in teh relative class name,
     // append with .class.php
-    $file = $base_dir . str_replace('\\', DIRECTORY_SEPARATOR, $relative_class) . '.class.php';
+    $file = $base_dir . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.class.php';
     
     if (file_exists($file)) {
         require $file;
