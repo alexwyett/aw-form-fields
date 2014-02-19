@@ -7,8 +7,9 @@
     "require": {
         "php": ">=5.3.0"
     },
+    "license": "proprietary",
     "autoload": {
-        "psr-4": {
+        "psr-0": {
             "aw\\formfields\\": "src"
         }
     }
