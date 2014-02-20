@@ -1,10 +1,35 @@
-Form Fields object class library
-=================================
+# Form Fields object class library
 
 This library provides the ability to create form and element objects programatically using OO.
 
-Notes:
-================================
+## Installing via composer
+1. Create a composer.json where you want to install the project
+2. Add the following:
+
+```
+{
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:CarltonSoftware/tabs-api-client.git"
+		}
+	],
+	"require": {
+		"carltonsoftware/tabs-api-client": "dev-master"	
+	}
+}
+```
+3: Download composer and install the repo:
+
+```
+curl -sS https://getcomposer.org/installer | php
+./composer.phar install
+```
+
+For more information about composer, please see the [composer quick start guide](https://getcomposer.org/doc/00-intro.md).
+
+
+### Notes:
 
 If you are using xedbug and have large collections of child objects, you may need to add this into your php.ini:
 
