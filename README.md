@@ -11,14 +11,8 @@ See the various [examples](https://github.com/alexwyett/aw-form-fields/blob/mast
 
 ```
 {
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "git@github.com:CarltonSoftware/tabs-api-client.git"
-		}
-	],
 	"require": {
-		"carltonsoftware/tabs-api-client": "dev-master"	
+		"aw/formfields": "dev-master"	
 	}
 }
 ```
