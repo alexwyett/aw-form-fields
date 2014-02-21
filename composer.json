@@ -5,7 +5,8 @@
     "keywords": ["forms", "html"],
     "homepage": "http://github.com/alexwyett/aw-form-fields",
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "phpunit/phpunit": "3.7.*"
     },
     "license": "proprietary",
     "autoload": {

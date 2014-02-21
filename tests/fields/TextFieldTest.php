@@ -130,57 +130,6 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     {
         $this->textField->foo();
     }
-
-    /**
-     * Test that an exception is thrown on validation failure
-     * 
-     * @expectedException \aw\formfields\validation\ValidationException
-     * 
-     * @return void
-     */
-    public function testTextFieldValidationNullException()
-    {
-        // Set value to be null
-        $this->textField->setValue(null)->getRule()->validateNull();
-    }
-
-    /**
-     * Test that an exception is thrown on string validation failure
-     * 
-     * @expectedException \aw\formfields\validation\ValidationException
-     * 
-     * @return void
-     */
-    public function testTextFieldValidationStringException()
-    {
-        // Set value to be empty string
-        $this->textField->setValue('')->getRule()->validateString();
-    }
-
-    /**
-     * Test that an exception is thrown on all validation
-     * 
-     * @expectedException \aw\formfields\validation\ValidationException
-     * 
-     * @return void
-     */
-    public function testTextFieldValidationException()
-    {
-        // Set value to be empty string
-        $this->textField->setValue('')->getRule()->validate();
-    }
-    
-    /**
-     * Test email validation
-     * 
-     * @expectedException \aw\formfields\validation\ValidationException
-     * 
-     * @return void
-     */
-    public function testEmailValidationException()
-    {
-        $this->textField->setRule('ValidEmail')->setValue('')->getRule()->validate();
-    }
     
     /**
      * Test email validation
@@ -191,45 +140,122 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     {
         $this->textField->setRule('ValidEmail')->setValue('email@example.com')->getRule()->validate();
     }
-    
-    /**
-     * Test email validation
-     * 
-     * @expectedException \aw\formfields\validation\ValidationException
-     * 
-     * @return void
-     */
-    public function testEmailValidationExceptionTwo()
-    {
-        $this->textField->setRule('ValidEmail')->setValue('email@')->getRule()->validate();
-    }
-    
-    /**
-     * Test email validation
-     * 
-     * @return void
-     */
-    public function testEmailValidationExceptionCode()
-    {
-        try {
-            $this->textField->setRule('ValidEmail')->setValue('invalidemailaddress')->getRule()->validate();
-        } catch(\aw\formfields\validation\ValidationException $e) {
-            $this->assertEquals('aw\formfields\validation\ValidationException: [1002]: Invalid email address', (string) $e);
-        }
-    }
 
     /**
-     * Test exception methods
+     * Test that an exception is thrown on slug validation failure
+     * 
+     * @dataProvider slugValidationProvider
      * 
      * @return void
      */
-    public function testValidationMethods()
-    {
+    public function testTextFieldValidationExceptionCode(
+        $rule,
+        $value,
+        $code,
+        $message,
+        $toString
+    ) {
         try {
-            $this->testTextFieldValidationException();
-        } catch(\aw\formfields\validation\ValidationException $e) {
-            // Test __toString()
-            $this->assertEquals('aw\formfields\validation\ValidationException: [1001]: Required', (string) $e);
+            $this->textField->setRule($rule)->setValue($value)->getRule()->validate();
+        } catch (\aw\formfields\validation\ValidationException $ex) {
+            $this->assertEquals($code, $ex->getCode());
+            $this->assertEquals($message, $ex->getMessage());
+            $this->assertEquals($toString, (string) $ex);
         }
+    }
+    
+    /**
+     * Return slug validation provision
+     * 
+     * @return array
+     */
+    public function slugValidationProvider()
+    {
+        return array(
+            array(
+                'Valid',
+                null,
+                1000,
+                'Required',
+                'aw\formfields\validation\ValidationException: [1000]: Required'
+            ),
+            array(
+                'ValidString',
+                '',
+                1001,
+                'Required',
+                'aw\formfields\validation\ValidationException: [1001]: Required'
+            ),
+            array(
+                'ValidEmail',
+                '',
+                1001,
+                'Required',
+                'aw\formfields\validation\ValidationException: [1001]: Required'
+            ),
+            array(
+                'ValidEmail',
+                'email@',
+                1002,
+                'Invalid email address',
+                'aw\formfields\validation\ValidationException: [1002]: Invalid email address'
+            ),
+            array(
+                'ValidEmail',
+                'invalidemail',
+                1002,
+                'Invalid email address',
+                'aw\formfields\validation\ValidationException: [1002]: Invalid email address'
+            ),
+            array(
+                'ValidSlug',
+                '',
+                1001,
+                'Required',
+                'aw\formfields\validation\ValidationException: [1001]: Required'
+            ),
+            array(
+                'ValidSlug',
+                null,
+                1000,
+                'Required',
+                'aw\formfields\validation\ValidationException: [1000]: Required'
+            ),
+            array(
+                'ValidSlug',
+                'S*&(s8978f-',
+                1005,
+                'Alpha/Numeric characters only',
+                'aw\formfields\validation\ValidationException: [1005]: Alpha/Numeric characters only'
+            ),
+            array(
+                'ValidSlug',
+                'DFDSFDS)(*DF^(',
+                1005,
+                'Alpha/Numeric characters only',
+                'aw\formfields\validation\ValidationException: [1005]: Alpha/Numeric characters only'
+            ),
+            array(
+                'ValidSlug',
+                'DFDSFDS',
+                1005,
+                'Alpha/Numeric characters only',
+                'aw\formfields\validation\ValidationException: [1005]: Alpha/Numeric characters only'
+            ),
+            array(
+                'ValidSlug',
+                '____',
+                1005,
+                'Alpha/Numeric characters only',
+                'aw\formfields\validation\ValidationException: [1005]: Alpha/Numeric characters only'
+            ),
+            array(
+                'ValidSlug',
+                '--__',
+                1005,
+                'Alpha/Numeric characters only',
+                'aw\formfields\validation\ValidationException: [1005]: Alpha/Numeric characters only'
+            )
+        );
     }
 }

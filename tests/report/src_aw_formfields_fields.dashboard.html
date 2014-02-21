@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /var/www/aw-form-fields</title>
+  <title>Dashboard for /var/www/aw-form-fields/src/aw/formfields/fields</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -18,7 +18,11 @@
     <div class="row">
      <div class="span12">
       <ul class="breadcrumb">
-        <li><a href="index.html">/var/www/aw-form-fields</a></li>
+        <li><a href="index.html">/var/www/aw-form-fields</a> <span class="divider">/</span></li>
+        <li><a href="src.html">src</a> <span class="divider">/</span></li>
+        <li><a href="src_aw.html">aw</a> <span class="divider">/</span></li>
+        <li><a href="src_aw_formfields.html">formfields</a> <span class="divider">/</span></li>
+        <li><a href="src_aw_formfields_fields.html">fields</a></li>
         <li class="active">(Dashboard)</li>
 
       </ul>
@@ -77,7 +81,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,27], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,15], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -129,7 +133,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,6,"<a href=\"src_aw_formfields_fields_Checkbox.php.html#30\">Checkbox<\/a>"],[100,54,"<a href=\"src_aw_formfields_fields_Element.php.html#30\">Element<\/a>"],[100,2,"<a href=\"src_aw_formfields_fields_Fieldset.php.html#30\">Fieldset<\/a>"],[100,0,"<a href=\"src_aw_formfields_fields_HiddenInput.php.html#31\">HiddenInput<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_ImageButton.php.html#30\">ImageButton<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_Label.php.html#31\">Label<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_Legend.php.html#31\">Legend<\/a>"],[100,1,"<a href=\"src_aw_formfields_fields_Optgroup.php.html#31\">Optgroup<\/a>"],[100,6,"<a href=\"src_aw_formfields_fields_Option.php.html#31\">Option<\/a>"],[100,32,"<a href=\"src_aw_formfields_fields_ParentElement.php.html#30\">ParentElement<\/a>"],[100,15,"<a href=\"src_aw_formfields_fields_SelectInput.php.html#31\">SelectInput<\/a>"],[100,1,"<a href=\"src_aw_formfields_fields_SubmitButton.php.html#30\">SubmitButton<\/a>"],[100,1,"<a href=\"src_aw_formfields_fields_TextInput.php.html#31\">TextInput<\/a>"],[100,5,"<a href=\"src_aw_formfields_fields_Textarea.php.html#31\">Textarea<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_ValueElement.php.html#30\">ValueElement<\/a>"],[100,5,"<a href=\"src_aw_formfields_forms_AddressForm.php.html#31\">AddressForm<\/a>"],[100,3,"<a href=\"src_aw_formfields_forms_BrochureForm.php.html#31\">BrochureForm<\/a>"],[100,1,"<a href=\"src_aw_formfields_forms_ContactForm.php.html#31\">ContactForm<\/a>"],[100,31,"<a href=\"src_aw_formfields_forms_Form.php.html#31\">Form<\/a>"],[100,7,"<a href=\"src_aw_formfields_forms_StaticForm.php.html#31\">StaticForm<\/a>"],[100,13,"<a href=\"src_aw_formfields_validation_Valid.php.html#30\">Valid<\/a>"],[100,4,"<a href=\"src_aw_formfields_validation_ValidCheckedState.php.html#30\">ValidCheckedState<\/a>"],[100,2,"<a href=\"src_aw_formfields_validation_ValidEmail.php.html#30\">ValidEmail<\/a>"],[100,2,"<a href=\"src_aw_formfields_validation_ValidNumber.php.html#30\">ValidNumber<\/a>"],[100,2,"<a href=\"src_aw_formfields_validation_ValidSlug.php.html#30\">ValidSlug<\/a>"],[100,3,"<a href=\"src_aw_formfields_validation_ValidString.php.html#30\">ValidString<\/a>"],[100,1,"<a href=\"src_aw_formfields_validation_ValidationException.php.html#30\">ValidationException<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,6,"<a href=\"src_aw_formfields_fields_Checkbox.php.html#30\">Checkbox<\/a>"],[100,54,"<a href=\"src_aw_formfields_fields_Element.php.html#30\">Element<\/a>"],[100,2,"<a href=\"src_aw_formfields_fields_Fieldset.php.html#30\">Fieldset<\/a>"],[100,0,"<a href=\"src_aw_formfields_fields_HiddenInput.php.html#31\">HiddenInput<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_ImageButton.php.html#30\">ImageButton<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_Label.php.html#31\">Label<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_Legend.php.html#31\">Legend<\/a>"],[100,1,"<a href=\"src_aw_formfields_fields_Optgroup.php.html#31\">Optgroup<\/a>"],[100,6,"<a href=\"src_aw_formfields_fields_Option.php.html#31\">Option<\/a>"],[100,32,"<a href=\"src_aw_formfields_fields_ParentElement.php.html#30\">ParentElement<\/a>"],[100,15,"<a href=\"src_aw_formfields_fields_SelectInput.php.html#31\">SelectInput<\/a>"],[100,1,"<a href=\"src_aw_formfields_fields_SubmitButton.php.html#30\">SubmitButton<\/a>"],[100,1,"<a href=\"src_aw_formfields_fields_TextInput.php.html#31\">TextInput<\/a>"],[100,5,"<a href=\"src_aw_formfields_fields_Textarea.php.html#31\">Textarea<\/a>"],[100,3,"<a href=\"src_aw_formfields_fields_ValueElement.php.html#30\">ValueElement<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
