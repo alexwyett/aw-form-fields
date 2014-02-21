@@ -157,7 +157,7 @@ class BookingForm extends \aw\formfields\forms\StaticForm
         
         $age = self::getNewLabelAndTextField(
             'Age',
-            'ValidString',
+            'ValidNumber',
             true
         )->getElementBy('getType', 'text')
             ->setId($type . '_' . $number . '_age')
