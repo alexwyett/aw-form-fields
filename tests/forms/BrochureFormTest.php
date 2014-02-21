@@ -87,7 +87,7 @@ class BrochureFormTest extends ContactFormTest
                     </fieldset>
                     <fieldset class="optional-details">
                         <legend>Optional Details</legend>
-                        <label for="emailoptin">Please tick here if you would like to here about our special offers<input type="checkbox" id="emailoptin" name="emailoptin"></label>
+                        <label for="emailOptIn">Please tick here if you would like to here about our special offers<input type="checkbox" id="emailOptIn" name="emailOptIn"></label>
                         <label for="where-did-you-here-about-us">Where did you here about us?<select id="where-did-you-here-about-us" name="source"><option value="" selected="selected">Select</option><option value="GOO">Google Ads</option><option value="SRCH">Other Search Engine</option><option value="NEW">Newspaper</option></select></label>
                     </fieldset>
                     <input type="submit" value="Submit Form">

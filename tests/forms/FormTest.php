@@ -99,7 +99,7 @@ class FormTest extends PHPUnit_Framework_TestCase
                 'town' => 'Somehwere',
                 'county' => 'In the middle',
                 'postcode' => 'OFN0WRE',
-                'emailoptin' => 'on'
+                'emailOptIn' => 'on'
             ), 
             array(
                 'Select' => '',
@@ -121,7 +121,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         
         // Check checkbox has been ticked
         $this->assertTrue(
-            $brochureForm->getElementBy('getName', 'emailoptin')->isChecked()
+            $brochureForm->getElementBy('getName', 'emailOptIn')->isChecked()
         );
     }
     

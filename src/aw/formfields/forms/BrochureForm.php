@@ -71,10 +71,10 @@ class BrochureForm extends \aw\formfields\forms\StaticForm
         $fs->addChild(
             self::getNewLabelAndCheckboxField(
                 'Please tick here if you would like to here about our special offers'
-            )->setAttribute('for', 'emailoptin')
+            )->setAttribute('for', 'emailOptIn')
                 ->getElementBy('getType', 'checkbox')
-                ->setName('emailoptin')
-                ->setid('emailoptin')
+                ->setName('emailOptIn')
+                ->setid('emailOptIn')
                 ->getParent()
         );
         
