@@ -106,4 +106,18 @@ class ParentChildTest extends PHPUnit_Framework_TestCase
         );
     }
     
+    /**
+     * Test multiple accessor selection
+     * 
+     * Were going to remove the town and county fields
+     * 
+     * @return void
+     */
+    public function testMultipleSelects()
+    {
+        $form = \aw\formfields\forms\BrochureForm::factory();
+        $elements = $form->get('type[fieldset],id[title]');
+        $this->assertEquals(4, count($elements));
+    }
+    
 }

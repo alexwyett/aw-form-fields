@@ -139,6 +139,50 @@ abstract class ParentElement extends \aw\formfields\fields\Element
     }
     
     // ------------------------- Accessor Methods -------------------------- //
+    
+    /**
+     * Generic accessor.  To be used for selecting multiple elements at the
+     * same time.  Selector strings are in the format of:
+     * 
+     * attribute|type[value],attribute|type[value]....n
+     * 
+     * For example:
+     * 
+     * id[name],class[address],type[checkbox]
+     * 
+     * This will return any elements with an id of name, a class of address
+     * or any checkbox fields.
+     * 
+     * @param string $selector Selector statment
+     * 
+     * @return \aw\formfields\fields\Element|array
+     */
+    public function get($selector)
+    {
+        // Explode the string with commas
+        $selectors = explode(',', $selector);
+        
+        // Array to return
+        $objects = array();
+        
+        // Loop through selectors and extrac
+        foreach ($selectors as $selector) {
+            preg_match('/(\w+)\[(\w+)\]/is', $selector, $matches);
+            if (count($matches) == 3) {
+                $method = 'get' . ucfirst(trim($matches[1]));
+                $value = $matches[2];
+                foreach ($this->getElementsBy($method, $value) as $ele) {
+                    array_push(
+                        $objects,
+                        $ele
+                    );
+                }
+            }
+        }
+        
+        // TODO: Remove duplicates        
+        return array_values(array_filter($objects));
+    }
 
     /**
      * Return the element children
