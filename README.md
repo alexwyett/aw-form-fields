@@ -3,7 +3,7 @@
 This library provides the ability to create form and element objects programatically using OO.
 
 ## Getting Started
-See the various [examples](https://github.com/alexwyett/aw-form-fields/blob/master/aw/formfields/examples/textfield.php) for implementation methods
+See the various [examples](https://github.com/alexwyett/aw-form-fields/tree/master/examples) for implementation methods
 
 ## Installing via composer
 1. Create a composer.json where you want to install the project
