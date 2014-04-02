@@ -114,9 +114,9 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Another value', $this->textField->getRule()->getValue());
 
         // Test validation
-        $this->assertTrue($this->textField->getRule()->validateNull());
-        $this->assertTrue($this->textField->getRule()->validateString());
-        $this->assertTrue($this->textField->getRule()->validate());
+        $this->assertNull($this->textField->getRule()->validateNull());
+        $this->assertNull($this->textField->getRule()->validateString());
+        $this->assertNull($this->textField->getRule()->validate());
     }
 
     /**
@@ -132,19 +132,66 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     }
     
     /**
+     * Test date validation
+     * 
+     * @return void
+     */
+    public function testDateValidation()
+    {
+        $this->assertNull(
+            $this->textField->setRule('ValidDate')->setValue('now')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidDate')->setValue('10 September 2000')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidDate')->setValue('+1 day')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidDate')->setValue('+1 week')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidDate')->setValue('next Thursday')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidDate')->setValue('last Monday')->getRule()->validate()
+        );
+    }
+    
+    /**
+     * Test slug validation
+     * 
+     * @return void
+     */
+    public function testSlugValidation()
+    {
+        $this->assertNull(
+            $this->textField->setRule('ValidSlug')->setValue('this-is-ok')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidSlug')->setValue('thisisalsook')->getRule()->validate()
+        );
+        $this->assertNull(
+            $this->textField->setRule('ValidSlug')->setValue('this_is_also_ok')->getRule()->validate()
+        );
+    }
+    
+    /**
      * Test email validation
      * 
      * @return void
      */
     public function testEmailValidation()
     {
-        $this->textField->setRule('ValidEmail')->setValue('email@example.com')->getRule()->validate();
+        $this->assertNull(
+            $this->textField->setRule('ValidEmail')->setValue('email@example.com')->getRule()->validate()
+        );
     }
 
     /**
-     * Test that an exception is thrown on slug validation failure
+     * Test that an exception is thrown on validation failure
      * 
-     * @dataProvider slugValidationProvider
+     * @dataProvider validationProvider
      * 
      * @return void
      */
@@ -165,11 +212,96 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * Return slug validation provision
+     * Test the validation on a date value
+     * 
+     * @param mixed $value Test values
+     * 
+     * @expectedException aw\formfields\validation\ValidationException
+     * @expectedExceptionCode 1006
+     * @expectedExceptionMessage Date is invalid
+     * 
+     * @dataProvider invalidDateValidationProvider
+     * 
+     * @return void
+     */
+    public function testInvalidDateValidation($value)
+    {
+        $rule = aw\formfields\validation\ValidDate::factory($value);
+        
+        $this->textField->setRule($rule)->getRule()->validate();
+    }
+    
+    /**
+     * Return an array of invalid date formats
      * 
      * @return array
      */
-    public function slugValidationProvider()
+    public function invalidDateValidationProvider()
+    {
+        return array(
+            array(
+                ''
+            ),
+            array(
+                false
+            ),
+            array(
+                true
+            ),
+            array(
+                'foo'
+            ),
+            array(
+                1223123123
+            ),
+            array(
+                new stdClass()
+            )
+        );
+    }
+    
+    /**
+     * Test the validation on a date value
+     * 
+     * @expectedException aw\formfields\validation\ValidationException
+     * @expectedExceptionCode 1007
+     * @expectedExceptionMessage 01-01-2012 is less than the minimum date of 01-01-2013
+     * 
+     * @return void
+     */
+    public function testMinDateValidation()
+    {
+        $rule = aw\formfields\validation\ValidDate::factory('01-01-2012');
+        $rule->setMinDate('01-01-2013');
+        $rule->setMaxDate('31-12-2014');
+        
+        $rule->validate();
+    }
+    
+    /**
+     * Test the validation on a date value
+     * 
+     * @expectedException aw\formfields\validation\ValidationException
+     * @expectedExceptionCode 1008
+     * @expectedExceptionMessage 01-01-2012 is greater than the maximum date of 01-01-2011
+     * 
+     * @return void
+     */
+    public function testMaxDateValidation()
+    {
+        $rule = aw\formfields\validation\ValidDate::factory('01-01-2012');
+        $rule->setMinDate('01-01-2011');
+        $rule->setMaxDate('31-12-2011');
+        
+        $rule->validate();
+    }
+    
+    /**
+     * Return validation provision
+     * 
+     * @return array
+     */
+    public function validationProvider()
     {
         return array(
             array(
@@ -255,6 +387,13 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
                 1005,
                 'Alpha/Numeric characters only',
                 'aw\formfields\validation\ValidationException: [1005]: Alpha/Numeric characters only'
+            ),
+            array(
+                'ValidDate',
+                'notavaliddate',
+                1006,
+                'Date is invalid',
+                'aw\formfields\validation\ValidationException: [1006]: Date is invalid'
             )
         );
     }

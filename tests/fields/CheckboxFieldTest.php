@@ -73,7 +73,7 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
         
         // Test that the rule has the same checked status
         $this->assertTrue($cb->getRule()->getValue());
-        $this->assertTrue($cb->getRule()->validate());
+        $this->assertNull($cb->getRule()->validate());
     }
     
     /**

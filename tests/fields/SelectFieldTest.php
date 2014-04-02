@@ -92,9 +92,9 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Two', $this->selectField->getSelected()->getDisplayValue());
 
         // Test validation
-        $this->assertTrue($this->selectField->getRule()->validateNull());
-        $this->assertTrue($this->selectField->getRule()->validateNumber());
-        $this->assertTrue($this->selectField->getRule()->validate());
+        $this->assertNull($this->selectField->getRule()->validateNull());
+        $this->assertNull($this->selectField->getRule()->validateNumber());
+        $this->assertNull($this->selectField->getRule()->validate());
         
         // Test parent function
         $this->assertEquals('2', $this->selectField->getElementBy('getValue', 2, 1)->getParent()->getValue());
