@@ -42,7 +42,5 @@ class ValidNumber extends \aw\formfields\validation\Valid
                 1004
             );
         }
-        
-        return true;
     }
 }

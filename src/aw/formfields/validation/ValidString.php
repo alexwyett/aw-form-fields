@@ -42,7 +42,5 @@ class ValidString extends \aw\formfields\validation\Valid
                 1001
             );
         }
-        
-        return true;
     }
 }

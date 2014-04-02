@@ -126,7 +126,7 @@ class Valid
     /**
      * Validation method
      * 
-     * @return boolean
+     * @return void
      */
     public function validate()
     {
@@ -146,8 +146,6 @@ class Valid
             // Method will throw an exception on failure
             $this->$method();
         }
-        
-        return true;
     }
     
     /**
@@ -163,7 +161,5 @@ class Valid
                 1000
             );
         }
-        
-        return true;
     }
 }
