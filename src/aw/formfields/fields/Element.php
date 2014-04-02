@@ -361,14 +361,20 @@ abstract class Element
     /**
      * Set validity status
      *
-     * @param string $rule Name of validation rule to use
+     * @param string|object $rule Name of validation rule to use.  You may use 
+     * a validation object here if you want to set additional variables
+     * in a validation object prior to validating the field.
      * 
      * @return aw\forms\fields\Element
      */
     public function setRule($rule)
     {
-        $rule = "\aw\\formfields\\validation\\{$rule}";
-        $this->rule = $rule::factory($this->getValue());
+        if (is_object($rule)) {
+            $this->rule = $rule;
+        } else {
+            $rule = "\aw\\formfields\\validation\\{$rule}";
+            $this->rule = $rule::factory($this->getValue());
+        }
         return $this;
     }
     
