@@ -225,13 +225,11 @@ abstract class Element
         foreach ($matches as $match) {
             if (isset($match[0])) {
                 $method = str_replace('}', '', str_replace('{', '', $match[0]));
-                if (method_exists($object, $method)) {
-                    $template = str_replace(
-                        '{'.$method.'}', 
-                        $object->$method(),
-                        $template
-                    );
-                }
+                $template = str_replace(
+                    '{'.$method.'}', 
+                    $object->$method(),
+                    $template
+                );
             }
         }
         
