@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Address Form example
+ * TOCC Advanced search form example
  *
  * PHP Version 5.3
  *
@@ -15,29 +15,48 @@
 
 // Include autoloader
 require_once '../autoload.php';
+require_once 'ToccAdvancedSearch.php';
 
-$form = \aw\formfields\forms\SearchForm::factory(
+$form = new \aw\formfields\forms\ToccAdvancedSearch(
     array(), 
-    $_GET,
-    'wp_'
+    $_GET
 );
 
-// Apply a different template to each of the labels
-$form->each('getType', 'label', function($label) {
-    $label->setTemplate(
-        '<div class="row">'
-            . '<div class="col">'
-            . ' <label{implodeAttributes}>{getLabel}</label>'
-            . '</div>'
-            . '<div class="col">'
-            . '{renderChildren}'
-            . '</div>'
-        . '</div>'
-    );
-});
+$form->setAreaSelect(
+    $form->createBasicSelect(
+        'Area', 
+        array(
+            'Select' => '',
+            'Norfolk' => 'AREA',
+            'Suffolk' => 'AREA1',
+            'Kent' => 'AREA2'
+        ),
+        'areaAdv', 
+        'areaAdv'
+    )
+);
 
-if (count($_GET)) {
-    echo $form->validate();
-} else {
-    echo $form;
-}
+$form->setLocationSelect(
+    $form->createBasicSelect(
+        'Location', 
+        array(
+            'Select' => '',
+            'Southwold' => 'SOUTH',
+            'Holt' => 'HOLT',
+            'Reepham' => 'REEP'
+        ),
+        'locationAdv', 
+        'locationAdv'
+    )
+);
+
+$form->setSearchAttribute('Short Breaks', 'ATTR11')
+    ->setSearchAttribute('Close to Coast', 'ATTR138')
+    ->setSearchAttribute('Pet Friendly', 'pets')
+    ->setSearchAttribute('Private Parking', 'ATTR30')
+    ->setSearchAttribute('Internet Access', 'ATTR38')
+    ->setSearchAttribute('Garden/Courtyard', 'ATTR06')
+    ->setSearchAttribute('Near a Pub', 'ATTR139')
+    ->setSearchAttribute('On One Level', 'ATTR12');
+
+echo $form->build()->mapValues();
