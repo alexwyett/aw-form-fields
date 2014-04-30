@@ -31,7 +31,7 @@ $form->setAreaSelect(
             'Suffolk' => 'AREA1',
             'Kent' => 'AREA2'
         ),
-        'areaAdv', 
+        'area', 
         'areaAdv'
     )
 );
@@ -45,7 +45,7 @@ $form->setLocationSelect(
             'Holt' => 'HOLT',
             'Reepham' => 'REEP'
         ),
-        'locationAdv', 
+        'location', 
         'locationAdv'
     )
 );

@@ -45,6 +45,21 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
     protected $locationSelect;
     
     /**
+     * Distances used to filter locations
+     * 
+     * @var array
+     */
+    protected $distances = array(
+        'This Location Only' => 0,
+        'Within 1 mile' => 1.6,
+        'Within 3 miles' => 4.8,
+        'Within 5 miles' => 8,
+        'Within 10 miles' => 16,
+        'Within 15 miles' => 24,
+        'Within 20 miles' => 32
+    );
+    
+    /**
      * Nights dropdown values
      * 
      * @var array
@@ -126,6 +141,30 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
         '3' => '>3',
         '4' => '>4',
         '5' => '5'
+    );
+    
+    /**
+     * Bathooms dropdown values
+     * 
+     * @var array
+     */
+    protected $bathrooms = array(
+        'Any' => '',
+        '1' => '>1',
+        '2' => '>2',
+        '3' => '>3'
+    );
+    
+    /**
+     * Dogs dropdown values
+     * 
+     * @var array
+     */
+    protected $dogs = array(
+        'None' => '',
+        '1' => '>1',
+        '2' => '>2',
+        '3' => '>3'
     );
     
     /**
@@ -215,6 +254,18 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                 ->addChild(
                     $this->getLocationSelect()
                 );
+            
+        
+            // Add in distance dropdown
+            $this->getElementBy('getId', 'fs1')
+                ->addChild(
+                    $this->createBasicSelect(
+                        'Distance from', 
+                        $this->getDistances(), 
+                        'distance', 
+                        'distanceAdv'
+                    )
+                );
         }
         
         // Add in arrival date
@@ -245,7 +296,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
         
         // Add in number of people search
         if ($this->getSleeps()) {
-            $this->getElementBy('getId', 'fs2')
+            $this->getElementBy('getId', 'fs1')
                 ->addChild(
                     $this->createBasicSelect(
                         'Number of People', 
@@ -265,6 +316,32 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         $this->getBedrooms(), 
                         'bedrooms', 
                         'bedroomsAdv'
+                    )
+                );
+        }
+        
+        // Add in number of bathrooms search
+        if ($this->getBathrooms()) {
+            $this->getElementBy('getId', 'fs2')
+                ->addChild(
+                    $this->createBasicSelect(
+                        'Number of Bathrooms', 
+                        $this->getBathrooms(), 
+                        'ATTR63', 
+                        'bathroomsAdv'
+                    )
+                );
+        }
+        
+        // Add in number of dogs search
+        if ($this->getStars()) {
+            $this->getElementBy('getId', 'fs2')
+                ->addChild(
+                    $this->createBasicSelect(
+                        'Number of Dogs', 
+                        $this->getDogs(), 
+                        'ATTR08', 
+                        'dogsAdv'
                     )
                 );
         }
@@ -390,6 +467,54 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
     }
     
     /**
+     * Set the number of dogs
+     * 
+     * @param array $dogs Number of dogs array
+     * 
+     * @return \aw\formfields\forms\ToccAdvancedSearch
+     */
+    public function setDogs($dogs)
+    {
+        $this->dogs = $dogs;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the number of dogs
+     * 
+     * @return array
+     */
+    public function getDogs()
+    {
+        return $this->dogs;
+    }
+    
+    /**
+     * Set the number of bathrooms
+     * 
+     * @param array $bathrooms Number of bathrooms array
+     * 
+     * @return \aw\formfields\forms\ToccAdvancedSearch
+     */
+    public function setBathrooms($bathrooms)
+    {
+        $this->bathrooms = $bathrooms;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the number of bathrooms
+     * 
+     * @return array
+     */
+    public function getBathrooms()
+    {
+        return $this->bathrooms;
+    }
+    
+    /**
      * Set the area label/select box
      * 
      * @param \aw\formfields\fields\Label $areaSelect
@@ -435,6 +560,30 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
     public function getLocationSelect()
     {
         return $this->locationSelect;
+    }
+    
+    /**
+     * Set the Distances array
+     * 
+     * @param array $distances
+     * 
+     * @return \aw\formfields\forms\ToccAdvancedSearch
+     */
+    public function setDistances($distances)
+    {
+        $this->distances = $distances;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the distances array
+     * 
+     * @return \aw\formfields\fields\Label
+     */
+    public function getDistances()
+    {
+        return $this->distances;
     }
     
     /**
