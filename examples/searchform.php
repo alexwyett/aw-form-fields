@@ -26,7 +26,7 @@ $form->setAreaSelect(
     $form->createBasicSelect(
         'Area', 
         array(
-            'Select' => '',
+            'Any' => '',
             'Norfolk' => 'AREA',
             'Suffolk' => 'AREA1',
             'Kent' => 'AREA2'
@@ -40,7 +40,7 @@ $form->setLocationSelect(
     $form->createBasicSelect(
         'Location', 
         array(
-            'Select' => '',
+            'Any' => '',
             'Southwold' => 'SOUTH',
             'Holt' => 'HOLT',
             'Reepham' => 'REEP'
@@ -57,6 +57,10 @@ $form->setSearchAttribute('Short Breaks', 'ATTR11')
     ->setSearchAttribute('Internet Access', 'ATTR38')
     ->setSearchAttribute('Garden/Courtyard', 'ATTR06')
     ->setSearchAttribute('Near a Pub', 'ATTR139')
-    ->setSearchAttribute('On One Level', 'ATTR12');
+    ->setSearchAttribute('On One Level', 'ATTR12')
+    ->setSearchAttribute('Short Breaks', 'shortbreaktemplate')
+    ->setSearchAttribute('Special Offers', 'specialOffer')
+    ->setSearchAttribute('New Properties', 'ATTR91')
+    ->setSearchAttribute('Featured Properties', 'promote');
 
 echo $form->build()->mapValues();
