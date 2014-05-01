@@ -50,6 +50,8 @@ $form->setLocationSelect(
     )
 );
 
+$form->setStars(null);
+
 $form->setSearchAttribute('Short Breaks', 'ATTR11')
     ->setSearchAttribute('Close to Coast', 'ATTR138')
     ->setSearchAttribute('Pet Friendly', 'pets')

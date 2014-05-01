@@ -257,15 +257,17 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             
         
             // Add in distance dropdown
-            $this->getElementBy('getId', 'fs1')
-                ->addChild(
-                    $this->createBasicSelect(
-                        'Distance from', 
-                        $this->getDistances(), 
-                        'distance', 
-                        'distanceAdv'
-                    )
-                );
+            if ($this->getDistances()) {
+                $this->getElementBy('getId', 'fs1')
+                    ->addChild(
+                        $this->createBasicSelect(
+                            'Distance from', 
+                            $this->getDistances(), 
+                            'distance', 
+                            'distanceAdv'
+                        )
+                    );
+            }
         }
         
         // Add in arrival date
@@ -284,15 +286,17 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             );
         
         // Add in number of nights drop down
-        $this->getElementBy('getId', 'fs1')
-            ->addChild(
-                $this->createBasicSelect(
-                    'Number of Nights', 
-                    $this->getNights(), 
-                    'nights', 
-                    'nightsAdv'
-                )
-            );
+        if ($this->getNights()) {
+            $this->getElementBy('getId', 'fs1')
+                ->addChild(
+                    $this->createBasicSelect(
+                        'Number of Nights', 
+                        $this->getNights(), 
+                        'nights', 
+                        'nightsAdv'
+                    )
+                );
+        }
         
         // Add in number of people search
         if ($this->getSleeps()) {
@@ -334,7 +338,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
         }
         
         // Add in number of dogs search
-        if ($this->getStars()) {
+        if ($this->getDogs()) {
             $this->getElementBy('getId', 'fs2')
                 ->addChild(
                     $this->createBasicSelect(
