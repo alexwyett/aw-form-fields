@@ -50,8 +50,6 @@ $form->setLocationSelect(
     )
 );
 
-$form->setStars(null);
-
 $form->setSearchAttribute('Short Breaks', 'ATTR11')
     ->setSearchAttribute('Close to Coast', 'ATTR138')
     ->setSearchAttribute('Pet Friendly', 'pets')
@@ -65,4 +63,36 @@ $form->setSearchAttribute('Short Breaks', 'ATTR11')
     ->setSearchAttribute('New Properties', 'ATTR91')
     ->setSearchAttribute('Featured Properties', 'promote');
 
-echo $form->build()->mapValues();
+$form->build();
+
+// Start form theming
+// Wrap Select fields
+$form->each('getType', 'select', function($ele) {
+    $ele->getParent()->setTemplate(
+        '<label{implodeAttributes}><span>{getLabel}</span>{renderChildren}</label>'
+    );
+});
+
+// Add separator between shortbreaks and featured properties checkboxes
+$form->getElementBy('getId', 'shortbreaktemplate')->getParent()->prependTemplate('<div class="featured-attributes">');
+$form->getElementBy('getId', 'promote')->getParent()->appendTemplate('</div>');
+
+// Remove Submit button
+$form->getElementBy('getType', 'submit')->remove();
+
+// Set form template
+$form->setTemplate(
+    '<form{implodeAttributes}>
+        <div class="form-inner">
+            {renderChildren}
+        </div>
+        <div class="advanced-search-form-actions">
+            <button class="view-cottages submit">Search Now<i></i></button>
+            <span id="search-result-lead">Your search will find <strong>all</strong> of our cottages</span>
+        </div>
+     </form>'
+        
+);
+
+
+echo $form->mapValues();
