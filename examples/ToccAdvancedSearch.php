@@ -264,7 +264,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                             'Radius', 
                             $this->getDistances(), 
                             'distance', 
-                            'distanceAdv'
+                            'distance'
                         )
                     );
             }
@@ -293,7 +293,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         'Number of Nights', 
                         $this->getNights(), 
                         'nights', 
-                        'nightsAdv'
+                        'nights'
                     )
                 );
         }
@@ -306,7 +306,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         'Number of People', 
                         $this->getSleeps(), 
                         'accommodates', 
-                        'sleepsAdv'
+                        'sleeps'
                     )
                 );
         }
@@ -319,7 +319,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         'Number of Bedrooms', 
                         $this->getBedrooms(), 
                         'bedrooms', 
-                        'bedroomsAdv'
+                        'bedrooms'
                     )
                 );
         }
@@ -332,7 +332,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         'Number of Bathrooms', 
                         $this->getBathrooms(), 
                         'ATTR63', 
-                        'bathroomsAdv'
+                        'bathrooms'
                     )
                 );
         }
@@ -345,7 +345,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         'Number of Dogs', 
                         $this->getDogs(), 
                         'ATTR08', 
-                        'dogsAdv'
+                        'dogs'
                     )
                 );
         }
@@ -358,7 +358,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                         'Star Rating', 
                         $this->getStars(), 
                         'rating', 
-                        'starsAdv'
+                        'stars'
                     )
                 );
         }
