@@ -174,6 +174,9 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         $this->assertNull(
             $this->textField->setRule('ValidSlug')->setValue('this_is_also_ok')->getRule()->validate()
         );
+        $this->assertNull(
+            $this->textField->setRule('ValidSlug')->setValue('This_Is-also_ok')->getRule()->validate()
+        );
     }
     
     /**

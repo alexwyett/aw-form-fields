@@ -36,7 +36,7 @@ class ValidSlug extends \aw\formfields\validation\ValidString
      */
     public function validateSlug()
     {
-        if (!preg_match('/^[a-z0-9][-_a-z0-9]*$/', $this->getValue())) {
+        if (!preg_match('/^[a-zA-Z0-9][-_a-zA-Z0-9]*$/', $this->getValue())) {
             // @codeCoverageIgnoreStart
             // TODO: Why does this not get covered in the unit tests?
             throw new \aw\formfields\validation\ValidationException(
