@@ -27,9 +27,9 @@ $form->setAreaSelect(
         'Area', 
         array(
             'Any' => '',
-            'Norfolk' => 'AREA',
-            'Suffolk' => 'AREA1',
-            'Kent' => 'AREA2'
+            'Norfolk' => 'NORF',
+            'Suffolk' => 'SUFF',
+            'Kent' => 'KENT'
         ),
         'area', 
         'areaAdv'
@@ -41,9 +41,22 @@ $form->setLocationSelect(
         'Location', 
         array(
             'Any' => '',
-            'Southwold' => 'SOUTH',
-            'Holt' => 'HOLT',
-            'Reepham' => 'REEP'
+            'Cranbrook' => array(
+                'value' => 'CRAN',
+                'class' => 'KENT'
+            ),
+            'Holt' => array(
+                'value' => 'HOLT',
+                'class' => 'NORF',
+            ),
+            'Reepham' => array(
+                'value' => 'REEP',
+                'class' => 'NORF',
+            ),
+            'Southwold' => array(
+                'value' => 'SOUTH',
+                'class' => 'SUFF'
+            )
         ),
         'location', 
         'locationAdv'
