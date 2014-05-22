@@ -94,6 +94,14 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
         // Test that the text field is not required to be tested at the
         // moment
         $this->assertFalse($textField2->isRequired());
+        
+        // Test setting the required field on a new validation rule
+        $textField2->setRule('ValidSlug', true);
+        $this->assertTrue($textField2->isRequired());
+        
+        // Test setting the required field on a new validation rule
+        $textField2->setRule('ValidSlug', false);
+        $this->assertFalse($textField2->isRequired());
     }
 
     /**

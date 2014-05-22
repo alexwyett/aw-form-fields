@@ -67,7 +67,7 @@ abstract class Element
     /**
      * Validation rule applied
      * 
-     * @var object
+     * @var \aw\formfields\validation\Valid
      */
     protected $rule = null;
     
@@ -359,13 +359,14 @@ abstract class Element
     /**
      * Set validity status
      *
-     * @param string|object $rule Name of validation rule to use.  You may use 
+     * @param string|object $rule     Name of validation rule to use.  You may use 
      * a validation object here if you want to set additional variables
      * in a validation object prior to validating the field.
+     * @param boolean       $required Required flag for rule
      * 
      * @return aw\forms\fields\Element
      */
-    public function setRule($rule)
+    public function setRule($rule, $required = false)
     {
         if (is_object($rule)) {
             $this->rule = $rule;
@@ -373,6 +374,10 @@ abstract class Element
             $rule = "\aw\\formfields\\validation\\{$rule}";
             $this->rule = $rule::factory($this->getValue());
         }
+        
+        // Set the required status of the rule
+        $this->rule->setRequired($required);
+        
         return $this;
     }
     
@@ -380,6 +385,8 @@ abstract class Element
      * Retrieve a single attribute
      *
      * @param string $attributeName Attribute name you wish to search for
+     * 
+     * @throws \RuntimeException
      * 
      * @return mixed
      */
