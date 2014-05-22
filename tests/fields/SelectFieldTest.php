@@ -131,18 +131,66 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
      */
     public function testOptgroupSelect()
     {
-        $select = new \aw\formfields\fields\SelectInput('selectfield3');
 
         // Create a new option
         $op = new \aw\formfields\fields\Option('Select', '');
         $op1 = new \aw\formfields\fields\Option('1', '1');
         $op2 = new \aw\formfields\fields\Option('2', '2');
         $optg = new \aw\formfields\fields\Optgroup('Options');
-        $select->addChild($optg->addChildren(array($op, $op1, $op2)));
-
+        
+        $select = \aw\formfields\fields\SelectInput::factory(
+            'selectfield3',
+            array(
+                $optg->addChildren(
+                    array(
+                        $op,
+                        $op1,
+                        $op2
+                    )
+                )
+            )
+        );
+        
         $this->assertEquals(
-            '<select name="selectfield3"><optgroup label="Options"><option value="">Select</option><option value="1">1</option><option value="2">2</option></optgroup></select>', 
+            '<select name="selectfield3"><optgroup label="Options"><option value="" selected="selected">Select</option><option value="1">1</option><option value="2">2</option></optgroup></select>', 
             $select->render()
+        );
+    }
+
+    /**
+     * Test the optgroup factory method
+     * 
+     * @return void
+     */
+    public function testOptgroupFactory()
+    {
+        $optgroup = \aw\formfields\fields\Optgroup::factory(
+            'Colours',
+            array(
+                'Red' => 'red',
+                'Orange' => 'orange',
+                'Yellow' => array(
+                    'value' => 'yellow',
+                    'style' => 'background-color: #FFFF00;'
+                ),
+                'Green' => 'green',
+                'Blue' => 'blue',
+                'Indigo' => 'indigo',
+                'Violet' => 'violet'
+            )
+        );
+        
+        $this->assertEquals(
+            '<optgroup label="Colours">'
+                . '<option value="red">Red</option>'
+                . '<option value="orange">Orange</option>'
+                . '<option value="yellow" style="background-color: #FFFF00;">Yellow</option>'
+                . '<option value="green">Green</option>'
+                . '<option value="blue">Blue</option>'
+                . '<option value="indigo">Indigo</option>'
+                . '<option value="violet">Violet</option>'
+            . '</optgroup>', 
+            $optgroup->render()
         );
     }
 

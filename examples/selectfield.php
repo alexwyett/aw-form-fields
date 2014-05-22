@@ -55,3 +55,43 @@ echo $sf2;
 
 // Try removing an option
 echo $sf2->getChild(1)->remove();
+
+// Try out the factory method several optgroups
+$sf3 = \aw\formfields\fields\SelectInput::factory(
+    'test3',
+    array(
+        'Select' => '',
+        \aw\formfields\fields\Optgroup::factory(
+            'Colours',
+            array(
+                'Red' => 'red',
+                'Orange' => 'orange',
+                'Yellow' => 'yellow',
+                'Green' => 'green',
+                'Blue' => 'blue',
+                'Indigo' => 'indigo',
+                'Violet' => 'violet'
+            )
+        ),
+        \aw\formfields\fields\Optgroup::factory(
+            'Numbers',
+            array(
+                '1' => '1',
+                '2' => '2',
+                '3' => '3',
+                '4' => '4',
+                '5' => '5',
+                '6' => '6',
+                '7' => '7',
+                '8' => '8',
+                '9' => '9',
+                '10' => '10'
+            )
+        )
+    ),
+    array(),
+    'red'
+);
+
+// Output field
+echo $sf3;

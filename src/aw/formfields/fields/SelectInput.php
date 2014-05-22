@@ -48,26 +48,29 @@ class SelectInput extends \aw\formfields\fields\ParentElement
     ) {
         $select = new \aw\formfields\fields\SelectInput($name, $attributes);
         foreach ($values as $key => $val) {
-
-            if (is_array($val) && isset($val['value'])) {
-                $op = new \aw\formfields\fields\Option(
-                    $key,
-                    $val['value'],
-                    $val      
-                );
+            
+            // Support for the optgroup object
+            if (is_object($val)) {
+                $select->addChild($val);
             } else {
-                $op = new \aw\formfields\fields\Option(
-                    $key,
-                    $val      
-                );
+                if (is_array($val) && isset($val['value'])) {
+                    $op = new \aw\formfields\fields\Option(
+                        $key,
+                        $val['value'],
+                        $val      
+                    );
+                } else {
+                    $op = new \aw\formfields\fields\Option(
+                        $key,
+                        $val      
+                    );
+                }
+                
+                $select->addChild($op);
             }
-
-            if ($val == $selectedVal) {
-                $op->setSelected(true);
-            }
-
-            $select->addChild($op);
         }
+        
+        $select->setValue($selectedVal);
 
         return $select;
     }
@@ -135,10 +138,10 @@ class SelectInput extends \aw\formfields\fields\ParentElement
      */
     public function setValue($value)
     {
-        foreach ($this->getChildren() as $child) {
-            $child->setSelected(false);
-            if ($child->getValue() == $value) {
-                $child->setSelected(true);
+        foreach ($this->getElementsBy('getType', 'option') as $ele) {
+            $ele->setSelected(false);
+            if ($ele->getValue() == $value) {
+                $ele->setSelected(true);
 
                 // Set value to validation rule if present
                 if ($this->getRule()) {

@@ -31,19 +31,54 @@ namespace aw\formfields\fields;
 class Optgroup extends \aw\formfields\fields\Label
 {
     /**
+     * Factory method for creating an option group box
+     * 
+     * @param string $label       Optgroup label
+     * @param array  $values      Values of the optgroup options in key/val pair
+     * @param array  $attributes  Element attributes
+     * 
+     * @return \aw\formfields\fields\Optgroup
+     */
+    public static function factory(
+        $label, 
+        $values = array(),
+        $attributes = array()
+    ) {
+        $optgroup = new \aw\formfields\fields\Optgroup($label, $attributes);
+        foreach ($values as $key => $val) {
+            if (is_array($val) && isset($val['value'])) {
+                $op = new \aw\formfields\fields\Option(
+                    $key,
+                    $val['value'],
+                    $val      
+                );
+            } else {
+                $op = new \aw\formfields\fields\Option(
+                    $key,
+                    $val      
+                );
+            }
+            $optgroup->addChild($op);
+        }
+
+        return $optgroup;
+    }
+    
+    /**
      * Constructor
      * 
-     * @param string $label Label Text
+     * @param string $label      Label Text
+     * @param array  $attributes Optgroup attributes
      * 
      * @return void
      */
-    public function __construct($label)
+    public function __construct($label, $attributes = array())
     {
-        $this->setLabel($label);
+        parent::__construct($label, $attributes);
         
         // Set the template
         $this->setTemplate(
-            '<optgroup label="{getLabel}">{renderChildren}</optgroup>'
+            '<optgroup label="{getLabel}"{implodeAttributes}>{renderChildren}</optgroup>'
         );
     }
 }
