@@ -36,7 +36,7 @@ class BrochureForm extends \aw\formfields\forms\StaticForm
      * @param array $attributes Form attributes
      * @param array $formValues Form Values
      * @param array $countries  Countries in alpha2 => Name format
-     * @param array $countries  Array of sources in Code => Name format
+     * @param array $sources    Array of sources in Code => Name format
      * 
      * @return void
      */
