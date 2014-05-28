@@ -146,7 +146,10 @@ class Form extends \aw\formfields\fields\ParentElement
      */
     public function setFormValues($formValues)
     {
-        $this->formValues = $formValues;
+        if (is_array($formValues)) {
+            $this->formValues = $formValues;
+        }
+        
         return $this;
     }
     
