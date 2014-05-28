@@ -18,16 +18,30 @@ require_once '../autoload.php';
 
 $form = \aw\formfields\forms\BrochureForm::factory(
     array(), 
-    $_GET,
+    filter_input_array(INPUT_GET),
     array(
         'Select' => '',
         'United Kingdom' => 'GB'
     ),
     array(
         'Select' => '',
-        'Google Ads' => 'GOO',
-        'Other Search Engine' => 'SRCH',
-        'Newspaper' => 'NEW'
+        \aw\formfields\fields\Optgroup::factory(
+            'Internet',
+            array(
+                'Google' => 'GOO',
+                'Yahoo!' => 'YAH',
+                'MSN' => 'MSN'
+            )
+        ),
+        \aw\formfields\fields\Optgroup::factory(
+            'Newspapers / Magazines',
+            array(
+                'The Times' => 'TIM',
+                'The Independent' => 'IND',
+                'The Guardian' => 'GUA',
+                'The Sun' => 'SUN'
+            )
+        )
     )
 );
 
