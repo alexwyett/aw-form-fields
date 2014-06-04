@@ -192,17 +192,20 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
         // Add Fieldset
         $this->addChildren(
             array(
-                new \aw\formfields\fields\Fieldset(
+                \aw\formfields\fields\Fieldset::factory(
+                    'Where would you like to go?',
                     array(
                         'id' => 'fs1'
                     )
                 ),
-                new \aw\formfields\fields\Fieldset(
+                \aw\formfields\fields\Fieldset::factory(
+                    'Refine your search...',
                     array(
                         'id' => 'fs2'
                     )
                 ),
-                new \aw\formfields\fields\Fieldset(
+                \aw\formfields\fields\Fieldset::factory(
+                    'Additional options...',
                     array(
                         'id' => 'fs3'
                     )
