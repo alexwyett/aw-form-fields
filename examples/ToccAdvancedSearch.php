@@ -50,7 +50,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
      * @var array
      */
     protected $distances = array(
-        'This Location Only' => 0,
+        'Distance from' => 0,
         'Within 1 mile' => 1.6,
         'Within 3 miles' => 4.8,
         'Within 5 miles' => 8,
@@ -282,7 +282,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                     ->setName('fromDate')
                     ->setId('fromDate')
                     ->setAttribute('readonly', 'true')
-                    ->setAttribute('placeholder', 'Click to Select')
+                    ->setAttribute('placeholder', 'Arrival Date')
                     ->setClass('placeholder datepicker')
                     ->getParent()
                         ->setAttribute('for', 'fromDate')
