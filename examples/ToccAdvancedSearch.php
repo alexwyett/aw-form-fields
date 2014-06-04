@@ -103,7 +103,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
      * @var array
      */
     protected $sleeps = array(
-        'Any' => '',
+        'Number of people (excl. infants under 2yrs)' => '',
         '1' => '>1',
         '2' => '>2',
         '3' => '>3',
@@ -161,7 +161,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
      * @var array
      */
     protected $dogs = array(
-        'None' => '',
+        'Any' => '',
         '1' => '>1',
         '2' => '>2',
         '3' => '>3'
@@ -293,7 +293,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs1')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Number of Nights', 
+                        'Number of nights', 
                         $this->getNights(), 
                         'nights', 
                         'nights'
@@ -306,7 +306,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs1')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Number of People', 
+                        'Number of people', 
                         $this->getSleeps(), 
                         'accommodates', 
                         'sleeps'
@@ -319,7 +319,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs2')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Number of Bedrooms', 
+                        'Number of bedrooms', 
                         $this->getBedrooms(), 
                         'bedrooms', 
                         'bedrooms'
@@ -332,7 +332,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs2')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Number of Bathrooms', 
+                        'Number of bathrooms', 
                         $this->getBathrooms(), 
                         'ATTR63', 
                         'bathrooms'
@@ -345,7 +345,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs2')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Number of Dogs', 
+                        'Number of pets', 
                         $this->getDogs(), 
                         'ATTR08', 
                         'dogs'
@@ -358,7 +358,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs2')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Star Rating', 
+                        'Star rating', 
                         $this->getStars(), 
                         'rating', 
                         'stars'
