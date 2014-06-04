@@ -24,9 +24,9 @@ $form = new \aw\formfields\forms\ToccAdvancedSearch(
 
 $form->setAreaSelect(
     $form->createBasicSelect(
-        'Area', 
+        'Please choose an Area', 
         array(
-            'Any' => '',
+            'Please choose an Area' => '',
             'Norfolk' => 'NORF',
             'Suffolk' => 'SUFF',
             'Kent' => 'KENT'
@@ -38,9 +38,9 @@ $form->setAreaSelect(
 
 $form->setLocationSelect(
     $form->createBasicSelect(
-        'Location', 
+        'Town/Village', 
         array(
-            'Any' => '',
+            'Town/Village' => '',
             'Cranbrook' => array(
                 'value' => 'CRAN',
                 'class' => 'KENT'
@@ -89,6 +89,12 @@ $form->each('getType', 'select', function($ele) {
 // Add separator between shortbreaks and featured properties checkboxes
 $form->getElementBy('getId', 'shortbreaktemplate')->getParent()->prependTemplate('<div class="featured-attributes">');
 $form->getElementBy('getId', 'promote')->getParent()->appendTemplate('</div>');
+$form->getElementBy('getId', 'fs1')->addChild(
+    new aw\formfields\fields\Legend('Where would you like to go?')
+);
+$form->getElementBy('getId', 'fs2')->addChild(
+    new aw\formfields\fields\Legend('Refine your search...')
+);
 
 // Remove Submit button
 $form->getElementBy('getType', 'submit')->remove();

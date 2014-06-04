@@ -261,7 +261,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                 $this->getElementBy('getId', 'fs1')
                     ->addChild(
                         $this->createBasicSelect(
-                            'Radius', 
+                            'Distance from', 
                             $this->getDistances(), 
                             'distance', 
                             'distance'
