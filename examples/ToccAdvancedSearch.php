@@ -345,7 +345,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             $this->getElementBy('getId', 'fs2')
                 ->addChild(
                     $this->createBasicSelect(
-                        'Pet Friendly', 
+                        'Pet friendly', 
                         array(
                             'Don\'t mind' => '',
                             'Yes' => 'true',
