@@ -634,10 +634,11 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
      * 
      * @param string $label  Label of control
      * @param string $name   Name of checkbox
+     * @param string $value  Value of checkbox
      * 
      * @return \aw\formfields\forms\ToccAdvancedSearch
      */
-    public function setSearchAttribute($label, $name)
+    public function setSearchAttribute($label, $name, $value = 'true')
     {
         array_push(
             $this->searchAttributes, 
@@ -646,7 +647,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
             )->getChild(0)
                 ->setName($name)
                 ->setId($name)
-                ->setValue('true')
+                ->setValue($value)
                 ->getParent()
                     ->setAttribute('for', $name)
         );
