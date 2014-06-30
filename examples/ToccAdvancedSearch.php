@@ -664,4 +664,14 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
     {
         return $this->searchAttributes;
     }
+    
+    /**
+     * Get a search form attribute
+     * 
+     * @return \aw\formfields\fields\Label
+     */
+    public function getSearchAttribute($index)
+    {
+        return $this->searchAttributes[$index];
+    }
 }
