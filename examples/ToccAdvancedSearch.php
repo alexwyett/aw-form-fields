@@ -103,7 +103,7 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
      * @var array
      */
     protected $sleeps = array(
-        'Number of people (excl. infants under 2yrs)' => '',
+        'Number of people (excluding under 2\'s)' => '',
         '1' => '>1',
         '2' => '>2',
         '3' => '>3',
