@@ -168,6 +168,18 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
     );
     
     /**
+     * Number of flexible days
+     * 
+     * @var array
+     */
+    protected $plusMinusDays = array(
+        'Exact date' => '0',
+        '+/- 1 day' => '1',
+        '+/- 2 days' => '2',
+        '+/- 3 days' => '3'
+    );
+    
+    /**
      * Array of attribute objects
      * 
      * @var array
@@ -301,6 +313,18 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
                 );
         }
         
+        if ($this->getPlusMinusDays()) {
+            $this->getElementBy('getId', 'fs1')
+                ->addChild(
+                    $this->createBasicSelect(
+                        'Days', 
+                        $this->getPlusMinusDays(), 
+                        'plusMinus', 
+                        'plusMinus'
+                    )
+                );
+        }
+        
         // Add in number of people search
         if ($this->getSleeps()) {
             $this->getElementBy('getId', 'fs1')
@@ -413,6 +437,30 @@ class ToccAdvancedSearch extends \aw\formfields\forms\StaticForm
     public function getNights()
     {
         return $this->nights;
+    }
+    
+    /**
+     * Return the flexible days variable
+     * 
+     * @return array
+     */
+    public function getPlusMinusDays()
+    {
+        return $this->plusMinusDays;
+    }
+    
+    /**
+     * Set the plus minus days array
+     * 
+     * @param array $plusMinusDays Plus Minus days
+     * 
+     * @return \aw\formfields\forms\ToccAdvancedSearch
+     */
+    public function setPlusMinusDays($plusMinusDays)
+    {
+        $this->plusMinusDays = $plusMinusDays;
+        
+        return $this;
     }
     
     /**
